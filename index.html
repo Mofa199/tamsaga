@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAMSA 15th GA & 17th ISC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .video-background {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .video-background iframe {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100vw; height: 56.25vw; /* 16:9 ratio */
+            min-width: 100%; min-height: 100%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        
+        @media (max-aspect-ratio: 16/9) {
+            .video-background iframe {
+                width: 177.78vh;
+                height: 100vh;
+            }
+        }
+        
+        @media (min-aspect-ratio: 16/9) {
+            .video-background iframe {
+                width: 100vw;
+                height: 56.25vw;
+            }
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a6ac3 0%, #213874 50%, #1a6ac3 100%);
+        }
+        
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+        
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        #loader {
+            transition: opacity 0.5s ease;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        .dark-glass-effect {
+            background: rgba(26, 42, 116, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        .section-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 42, 116, 0.6);
+        }
+        
+        .location-bg {
+            background-image: url('images/Dar_es_Salaam_\(Aerial\).jpg');
+        }
+        
+        .why-attend-bg {
+            background-image: url('images/mootcourt\ knockout.png');
+        }
+        
+        .speakers-bg {
+            background-image: url('images/Dar_es_Salaam_-_Posta.jpg');
+        }
+        
+        .stats-bg {
+            background-image: url('images/mootcourt\ knockout.png');
+        }
+        
+        .president-bg {
+            background-image: url('images/View_of_Panton_and_Dar_es_salaam_City_\(City_center\).jpg');
+        }
+        
+        .guest-bg {
+            background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .live-bg {
+            background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .activities-bg {
+            background-image: url('https://images.unsplash.com/photo-1544396821-4dd40b938ad3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80');
+        }
+        
+        .special-bg {
+            background-image: url('https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80');
+        }
+        
+        .news-bg {
+            background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .gallery-bg {
+            background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .partners-bg {
+            background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .cta-bg {
+            background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Loader Overlay -->
+    <div id="loader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+        <img src="images/wite bg.png" alt="TAMSA Logo" class="w-32 h-32 animate-pulse">
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/Tamsa logo (1).png" alt="IFMSA Logo" class="h-10">
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Home</a>
+                    <a href="about.html" class="text-blue-900 font-medium hover:text-blue-600 transition">About</a>
+                    <a href="program.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Program</a>
+                    <a href="speakers.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Speakers</a>
+                    <a href="venue.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Venue</a>
+                    <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition">Register</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-toggle" class="text-blue-900">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden flex-col space-y-4 px-4 pb-4 bg-white shadow-lg absolute top-16 left-0 w-full transition-all duration-300 transform -translate-y-4 opacity-0">
+            <a href="index.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Home |</a>
+            <a href="about.html" class="text-blue-900 font-medium hover:text-blue-600 transition"> About |</a>
+            <a href="program.html" class="text-blue-900 font-medium hover:text-blue-600 transition"> Program |</a>
+            <a href="speakers.html" class="text-blue-900 font-medium hover:text-blue-600 transition"> Speakers |</a>
+            <a href="venue.html" class="text-blue-900 font-medium hover:text-blue-600 transition"> Venue </a>
+            <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition">Register</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white relative overflow-hidden min-h-screen">
+        <div class="video-background">
+            <iframe
+                src="https://www.youtube.com/embed/pDjsJqfuraE?autoplay=1&mute=1&controls=0&loop=1&playlist=pDjsJqfuraE"
+                frameborder="0"
+                allow="autoplay; fullscreen"
+            ></iframe>
+            <div class="video-overlay"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+            <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                <div class="glass-effect p-8">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-shadow">15th General Assembly and 17th Scientific Conference</h1>
+                    <h2 class="text-3xl md:text-4xl font-semibold mb-8 text-shadow">Hosted by Kairuki</h2>
+                    
+                    <div class="flex space-x-4 mb-10">
+                        <div class="countdown-item rounded-lg p-4 text-center w-20">
+                            <div class="text-2xl font-bold">28</div>
+                            <div class="text-sm">Days</div>
+                        </div>
+                        <div class="countdown-item rounded-lg p-4 text-center w-20">
+                            <div class="text-2xl font-bold">03</div>
+                            <div class="text-sm">Hours</div>
+                        </div>
+                        <div class="countdown-item rounded-lg p-4 text-center w-20">
+                            <div class="text-2xl font-bold">47</div>
+                            <div class="text-sm">Minutes</div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-xl mb-8">October 5-10, 2025 - Dar es salaam, Tanzania</p>
+                    <div class="flex space-x-4">
+                        <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-white text-blue-900 px-6 py-3 rounded-md font-medium hover:bg-gray-100 transition">Register Now</a>
+                        <a href="login.html" class="border border-white px-6 py-3 rounded-md font-medium hover:bg-white hover:text-blue-900 transition">Login to Pay</a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <img src="images/Picture1.png" alt="GA logo" class="w-full max-w-md glass-effect">
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-blue-900 to-transparent"></div>
+    </section>
+    
+    <!-- Location Section -->
+    <section class="py-20 location-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">We hope to see you in</h2>
+                <h3 class="text-2xl md:text-3xl font-semibold">Dar es Salaam, Tanzania</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="glass-effect p-8">
+                    <p class="mb-6">The Tanzania Medical Students Association (TAMSA) General Assembly is an annual meeting organized by the TAMSA, of which are conducted once in a year since 2010. It is the national body that represents all medical students in Tanzania. The General Assembly provides a platform for medical students to discuss relevant health issues, exchange ideas, and propose solutions to improve the health sector in Tanzania.</p>
+                    <p class="mb-6">The Tanzania Medical Students Association (TAMSA) International Scientific Conference is an annual event organized by TAMSA in collaboration with various Partners. It has been conducted once in a year since 2010.  The conference brings together medical students, healthcare professionals, Researchers, and experts from around the world to share and discuss trending healthcare Topics, research findings, innovations, and best practices in Healthcare. </p>
+                    <p>This Year we bring to you TAMSA marathon</p>
+                </div>
+                <div class="relative rounded-xl overflow-hidden shadow-xl hover-scale">
+                    <img src="images/download.jpg" alt="Dar es salaam, Tanzania" class="w-full h-auto">
+                    <div class="absolute inset-0 bg-blue-900 opacity-20"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
+                        <h4 class="text-white text-xl font-semibold">Dar es salaam, Tanzania</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<!-- Why Attend Section -->
+<section class="py-20 why-attend-bg parallax relative text-white">
+    <div class="section-overlay"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Attend?</h2>
+            <div class="w-24 h-1 bg-white mx-auto"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="glass-effect p-8 hover-scale transition">
+                <div class="text-white mb-4">
+                    <i class="fas fa-users text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Global Networking</h3>
+                <p>Connect with 300+ delegates, health leaders, and innovators from across Tanzania and beyond. Build meaningful collaborations that extend beyond the assembly.</p>
+            </div>
+            
+            <div class="glass-effect p-8 hover-scale transition">
+                <div class="text-white mb-4">
+                    <i class="fas fa-microscope text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Innovative Discussions</h3>
+                <p>Engage in high-level panels and workshops on AI in healthcare, digital transformation, and the future of medical practice in Tanzania and the world.</p>
+            </div>
+            
+            <div class="glass-effect p-8 hover-scale transition">
+                <div class="text-white mb-4">
+                    <i class="fas fa-globe-africa text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Cultural Exchange</h3>
+                <p>Celebrate the diversity of Tanzania through cultural nights, team-building activities, and unforgettable island excursions with fellow students and leaders.</p>
+            </div>
+
+            <div class="glass-effect p-8 hover-scale transition">
+                <div class="text-white mb-4">
+                    <i class="fas fa-vote-yea text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Leadership Opportunities</h3>
+                <p>Participate in elections, debates, and constitutional reforms that shape the future of TAMSA. Be a voice, a voter, and a visionary for our collective progress.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Speakers Section -->
+    <section class="py-20 speakers-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Speakers</h2>
+                <p class="text-xl">World-renowned experts joining us in Dar es salaam</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-xl overflow-hidden hover-scale transition">
+                    <div class="h-64 bg-blue-100 flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Dr. Sarah Johnson" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1">Dr. John Doe</h3>
+                        <p class="font-medium mb-3">Director, WHO Global Health</p>
+                        <p>Leading expert in global health policy and pandemic response strategies.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-xl overflow-hidden hover-scale transition">
+                    <div class="h-64 bg-blue-100 flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Prof. Ahmed Al-Mansoori" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1">Prof. John Doe</h3>
+                        <p class="font-medium mb-3">Dean, SJUCHAS Medical College</p>
+                        <p>Pioneer in medical education reform in the Africa East region.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-xl overflow-hidden hover-scale transition">
+                    <div class="h-64 bg-blue-100 flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Dr. Maria Fernandez" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1">Dr. John Doe</h3>
+                        <p class="font-medium mb-3">Nobel Laureate, Medicine</p>
+                        <p>Groundbreaking researcher in tropical disease treatments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="py-20 stats-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="glass-effect p-6">
+                    <div class="text-5xl font-bold mb-2">16+</div>
+                    <div class="text-xl font-medium">CHAPTERS</div>
+                </div>
+                <div class="glass-effect p-6">
+                    <div class="text-5xl font-bold mb-2">180+</div>
+                    <div class="text-xl font-medium">DELEGATES</div>
+                </div>
+                <div class="glass-effect p-6">
+                    <div class="text-5xl font-bold mb-2">5</div>
+                    <div class="text-xl font-medium">MODALITIES</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- President Message -->
+    <section class="py-20 president-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="md:col-span-1 flex justify-center">
+                    <div class="relative">
+                        <img src="images/murtaza.jpeg" alt="Murtaza" class="rounded-lg shadow-xl w-full max-w-xs">
+                        <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-4 rounded-lg shadow-lg">
+                            <h3 class="font-bold">Murtaza Mzumbe</h3>
+                            <p class="text-sm">TAMSA President</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-2 glass-effect p-8">
+                    <h2 class="text-3xl font-bold mb-6">Dear TAMSA Family,</h2>
+                    <div class="space-y-4">
+                        <p>On behalf of the Tanzania Medical Students’ Association (TAMSA), it is with immense honor and heartfelt enthusiasm that I welcome you to participate in the 17th TAMSA International Scientific Conference and 15th General Assembly, scheduled to take place from 4th to 9th October in Dar es salaam, Tanzania.</p>
+                        <p>This prestigious annual gathering brings together medical students, young health professionals, researchers, policymakers, and key stakeholders from across Tanzania, Africa, and beyond, to engage in critical discussions, cutting-edge scientific presentations, leadership exchanges, and policy-shaping forums. As TAMSA, we believe that medical students are not just future healthcare professionals but also present-day changemakers.</p>
+                        <p>This conference is a call to amplify our collective voice and explore solutions to some of the continent’s most pressing health challenges.</p>
+                        <p>Your presence will not only enrich the conversations but also solidify our commitment to inclusivity and unity within the association. This is more than a conference, it is a movement, a gathering of visionaries and dedicated health advocates determined to transform systems, communities, and futures</p>
+                        <p>We look forward to welcoming you to this historic event and to the beautiful city of Dar es salaam.</p>
+                        <p class="font-semibold">TAMSA, COMMITTED TO SERVE,</p>
+                        <p class="font-bold">Murtaza</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Guest of Honour Section -->
+    <section class="py-20 guest-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Guest of Honour</h2>
+                <p class="text-xl">We are honored to welcome</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-12 items-center">
+                <div class="md:col-span-1 flex justify-center">
+                    <div class="relative">
+                        <img src="images/murtaza.jpeg" alt="His Excellency Dr. Ali Al-Habsi" class="rounded-lg shadow-xl w-full max-w-xs">
+                    </div>
+                </div>
+                <div class="md:col-span-2 glass-effect p-8">
+                    <h2 class="text-3xl font-bold mb-6">His Excellency Dr. John Doe</h2>
+                    <div class="space-y-4">
+                        <p>Minister of Health, Tanzania</p>
+                        <p>We are privileged to have His Excellency Dr. Ali Al-Habsi, the distinguished Minister of Health of Oman, as our Guest of Honour for the IFMSA August Meeting 2025.</p>
+                        <p>Under his leadership, Oman has made remarkable strides in healthcare accessibility and quality, serving as a model for health system development in the region.</p>
+                        <p>His Excellency will deliver the keynote address at our Opening Ceremony and participate in high-level discussions on global health equity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Live Section -->
+    <section class="py-20 live-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Plenary Live</h2>
+                <p class="text-xl">Watch live on our Channel!</p>
+            </div>
+            
+            <div class="glass-effect rounded-xl overflow-hidden shadow-lg">
+                <div class="aspect-w-16 aspect-h-9">
+                    <div class="bg-gray-300 h-96 flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-video text-5xl text-gray-500 mb-4"></i>
+                            <p class="text-xl text-gray-600">Live stream will be available during the event</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">GA 2025 Plenaries:</h3>
+                    <div class="flex space-x-4 overflow-x-auto py-2">
+                        <div class="flex-shrink-0 w-64 dark-glass-effect p-4 rounded-lg">
+                            <div class="font-medium">Opening Ceremony</div>
+                            <div class="text-sm">August 1, 09:00 GMT</div>
+                        </div>
+                        <div class="flex-shrink-0 w-64 dark-glass-effect p-4 rounded-lg">
+                            <div class="font-medium">International Scientific Conference</div>
+                            <div class="text-sm">August 2, 14:00 GMT</div>
+                        </div>
+                        <div class="flex-shrink-0 w-64 dark-glass-effect p-4 rounded-lg">
+                            <div class="font-medium">General Assembly</div>
+                            <div class="text-sm">August 3, 10:00 GMT</div>
+                        </div>
+                        <div class="flex-shrink-0 w-64 dark-glass-effect p-4 rounded-lg">
+                            <div class="font-medium">Closing Ceremony</div>
+                            <div class="text-sm">August 7, 16:00 GMT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<!-- Activities Section -->
+<section class="py-20 activities-bg parallax relative text-white">
+    <div class="section-overlay"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Activities</h2>
+            <p class="text-xl">Read more!</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Core Program -->
+            <div class="glass-effect rounded-xl overflow-hidden hover-scale transition">
+                <div class="h-48 bg-blue-100">
+                    <img src="/images/activities/core-program.jpg" alt="Core Program" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Core Program</h3>
+                    <p>
+                        Scientific Conference, General Assembly (elections, plenaries), and Standing Committee presentations (SCORA, SCOPH, SCORP, SCOPI, SCOME).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Health Engagement -->
+            <div class="glass-effect rounded-xl overflow-hidden hover-scale transition">
+                <div class="h-48 bg-blue-100">
+                    <img src="/images/activities/health-engagement.jpg" alt="Health Engagement" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Health Engagement</h3>
+                    <p>
+                        Medical outreach for underserved communities, NCD awareness marathon, and skill trainings with Aenon Healthcare.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Competitions & Showcases -->
+            <div class="glass-effect rounded-xl overflow-hidden hover-scale transition">
+                <div class="h-48 bg-blue-100">
+                    <img src="/images/activities/competitions.jpg" alt="Competitions" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Competitions & Showcases</h3>
+                    <p>
+                        Participate in the Ethical Moot Court, Publicity Challenge, and win awards like Best Innovation and Scientific Paper Prize.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Trainings & Workshops -->
+            <div class="glass-effect rounded-xl overflow-hidden hover-scale transition">
+                <div class="h-48 bg-blue-100">
+                    <img src="/images/activities/trainings.jpg" alt="Trainings & Workshops" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Trainings & Workshops</h3>
+                    <p>
+                        Learn medical skills like HIFU and customer care, explore digital health & AI tools, and sharpen your leadership and advocacy capabilities.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Social & Networking -->
+            <div class="glass-effect rounded-xl overflow-hidden hover-scale transition">
+                <div class="h-48 bg-blue-100">
+                    <img src="/images/activities/social-networking.jpg" alt="Social & Networking" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Social & Networking</h3>
+                    <p>
+                        Celebrate at Mbudya Island, join chapter bonding games, and immerse in cultural exchange moments with fellow delegates.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+    <!-- Special Programs Section -->
+    <section class="py-20 special-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Special Programs</h2>
+                <p class="text-xl">Unique opportunities during the TAMSA GA</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-xl shadow-lg overflow-hidden hover-scale transition">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center">
+                        <i class="fas fa-certificate text-5xl text-blue-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3">Training with AENON</h3>
+                        <p class="mb-4">Get certified training in emergency medicine and receive Continuing Professional Development (CPD) credits recognized internationally.</p>
+                        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition inline-block">Register Now</a>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-xl shadow-lg overflow-hidden hover-scale transition">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center">
+                        <i class="fas fa-running text-5xl text-blue-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3">Medical Marathon</h3>
+                        <p class="mb-4">Join our charity run supporting healthcare initiatives in Oman. A fun way to network while contributing to a good cause.</p>
+                        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition inline-block">Register Now</a>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-xl shadow-lg overflow-hidden hover-scale transition">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center">
+                        <i class="fas fa-clinic-medical text-5xl text-blue-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3">Medical Camp</h3>
+                        <p class="mb-4">Participate in our community outreach program providing basic healthcare services to underserved populations in Muscat.</p>
+                        <a href="#" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-md font-medium hover:bg-blue-50 transition inline-block">Know More Info</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- News Section -->
+    <section class="py-20 news-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">News</h2>
+                <p class="text-xl">Stay tuned!</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-xl shadow-md overflow-hidden hover-scale transition">
+                    <div class="h-48 bg-gray-300"></div>
+                    <div class="p-6">
+                        <div class="text-sm mb-2">February 12, 2025  04:03</div>
+                        <h3 class="text-xl font-bold mb-2">Registration Now Open</h3>
+                        <p>Early bird registration for August Meeting 2025 is now available. Secure your spot today!</p>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-xl shadow-md overflow-hidden hover-scale transition">
+                    <div class="h-48 bg-gray-300"></div>
+                    <div class="p-6">
+                        <div class="text-sm mb-2">January 30, 2025  11:27</div>
+                        <h3 class="text-xl font-bold mb-2">Program Schedule Released</h3>
+                        <p>Check out the preliminary program for August Meeting 2025 in Muscat.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-xl shadow-md overflow-hidden hover-scale transition">
+                    <div class="h-48 bg-gray-300"></div>
+                    <div class="p-6">
+                        <div class="text-sm mb-2">January 15, 2025  09:45</div>
+                        <h3 class="text-xl font-bold mb-2">Call for Abstracts</h3>
+                        <p>Submit your research and workshop proposals for August Meeting 2025.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="py-20 gallery-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Gallery</h2>
+                <p class="text-xl">IFMSA General Assembly</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="h-48 bg-gray-300 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Conference" class="w-full h-full object-cover">
+                </div>
+                <div class="h-48 bg-gray-300 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Group Discussion" class="w-full h-full object-cover">
+                </div>
+                <div class="h-48 bg-gray-300 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Workshop" class="w-full h-full object-cover">
+                </div>
+                <div class="h-48 bg-gray-300 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Networking" class="w-full h-full object-cover">
+                </div>
+                <div class="h-48 bg-gray-300 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Concert" class="w-full h-full object-cover">
+                </div>
+                <div class="h-48 bg-gray-300 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cultural Event" class="w-full h-full object-cover">
+                </div>
+                <div class="h-48 bg-gray-300 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1544396821-4dd40b938ad3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" alt="Award Ceremony" class="w-full h-full object-cover">
+                </div>
+                <div class="h-48 bg-gray-300 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Group Photo" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Partners Section -->
+    <section class="py-20 partners-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Partners</h2>
+                <p class="text-xl">Collaborating for better global health</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+                <div class="flex justify-center">
+                    <img src="images/wite bg.png" alt="WHO" class="h-16 object-contain">
+                </div>
+                <div class="flex justify-center">
+                    <img src="images/wite bg.png" alt="UNICEF" class="h-16 object-contain">
+                </div>
+                <div class="flex justify-center">
+                    <img src="images/wite bg.png" alt="Oman Ministry of Health" class="h-16 object-contain">
+                </div>
+                <div class="flex justify-center">
+                    <img src="images/wite bg.png" alt="MedSCO Oman" class="h-16 object-contain">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="py-20 cta-bg parallax relative text-white">
+        <div class="section-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Join Us in Dar es Salaam?</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Be part of this transformative experience that will shape the future of global health and medical education.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="" class="bg-white text-blue-900 px-8 py-3 rounded-md font-medium hover:bg-gray-100 transition">Register Now</a>
+                <a href="#" class="border border-white px-8 py-3 rounded-md font-medium hover:bg-white hover:text-blue-900 transition">Contact Us</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <img src="images/Tamsa logo (1).png" alt="TAMSA Logo" class="h-12 mb-4">
+                    <p class="text-gray-400">TAMSA is a member of the International Federation for Medical Students' Associations (IFMSA), which is one of the world's oldest and largest student-run organizations recognized by the World Health Organization as an official international forum for Medical Students.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Program</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Speakers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Venue</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>Muhimbili University of Health & Allied Sciences (MUHAS), United Nations Road, Upanga, Ilala Tanzania.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3"></i>
+                            <span>scopi@tamsatanzania.org</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                            <span>+255 768 924 035</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://www.instagram.com/tamsatanzania?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-medium mb-2">Subscribe to Newsletter</h4>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md text-gray-900 w-full">
+                            <button class="bg-blue-600 px-4 py-2 rounded-r-md hover:bg-blue-700 transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 TAMSA 15th GA and 17th ISC. All rights reserved.|Developed by MOFAS</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple countdown timer
+        function updateCountdown() {
+            const eventDate = new Date('August 1, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.querySelector('.countdown-item:nth-child(1) div:first-child').textContent = days;
+            document.querySelector('.countdown-item:nth-child(2) div:first-child').textContent = hours;
+            document.querySelector('.countdown-item:nth-child(3) div:first-child').textContent = minutes;
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+        
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+        
+        toggle.addEventListener('click', () => {
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                // Trigger animation
+                setTimeout(() => {
+                    menu.classList.remove('-translate-y-4', 'opacity-0');
+                    menu.classList.add('translate-y-0', 'opacity-100');
+                }, 10); // slight delay so transition runs
+            } else {
+                menu.classList.remove('translate-y-0', 'opacity-100');
+                menu.classList.add('-translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300); // match transition duration
+            }
+        });
+        
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.classList.add('opacity-0');
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500); // matches fade out duration
+        });
+    </script>
+</body>
+</html>

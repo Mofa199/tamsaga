@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .committee-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .download-btn:hover .download-icon {
+            transform: translateY(3px);
+        }
+        
+        .download-icon {
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .video-background {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+        
+        .section-with-bg {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .section-with-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(33, 56, 116, 0.7);
+            z-index: 0;
+        }
+        
+        .section-content {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/Tamsa logo (1).png" alt="IFMSA Logo" class="h-10">
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Home</a>
+                    <a href="about.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">About</a>
+                    <a href="program.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Program</a>
+                    <a href="speakers.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Speakers</a>
+                    <a href="venue.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Venue</a>
+                    <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-[#1a6ac3] text-white px-4 py-2 rounded-md font-medium hover:bg-[#213874] transition">Register</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-toggle" class="text-[#213874]">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden flex-col space-y-4 px-4 pb-4 bg-white shadow-lg absolute top-16 left-0 w-full transition-all duration-300 transform -translate-y-4 opacity-0">
+            <a href="index.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Home |</a>
+            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> About |</a>
+            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Program |</a>
+            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Speakers |</a>
+            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Venue </a>
+            <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-[#1a6ac3] text-white px-4 py-2 rounded-md font-medium hover:bg-[#213874] transition">Register</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <div class="video-background">
+<iframe
+    src="https://www.youtube.com/embed/6pOSstyeZdw?autoplay=1&mute=1&loop=1&playlist=6pOSstyeZdw"
+    frameborder="0"
+    allow="autoplay; fullscreen"
+    allowfullscreen
+    class="absolute inset-0 w-full h-full">
+</iframe>
+        <div class="absolute inset-0 bg-[#213874] bg-opacity-50 flex items-center justify-center">
+            <div class="container mx-auto px-6 text-center glass-effect p-12 max-w-4xl">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">About The Conference</h1>
+                <p class="text-xl md:text-2xl mb-8 text-white">Connecting minds, creating the future</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#committee" class="bg-white text-[#213874] px-6 py-3 rounded-full font-medium hover:bg-blue-100 transition">Meet the Committee</a>
+                    <a href="#message" class="border-2 border-white px-6 py-3 rounded-full font-medium text-white hover:bg-[#213874] hover:bg-opacity-50 transition">Chairperson's Message</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chairperson's Message -->
+    <div id="message" class="section-with-bg py-16" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+        <div class="container mx-auto px-6 section-content">
+            <div class="max-w-5xl mx-auto glass-card rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/3 bg-[#1a6ac3] flex items-center justify-center p-8">
+                        <img src="images/murtaza.jpeg" alt="Chairperson" class="rounded-full border-4 border-white w-48 h-48 object-cover">
+                    </div>
+                    <div class="md:w-2/3 p-8">
+                        <h2 class="text-3xl font-bold text-[#213874] mb-4">Message from the Chairperson</h2>
+                        <div class="border-l-4 border-[#1a6ac3] pl-4 mb-6">
+                            <p class="text-gray-700 italic mb-4">"It is with great pleasure that I welcome you to our annual General Assembly and International Scientific conference."</p>
+                        </div>
+                        <p class="text-gray-600 mb-4">Dear Delegates, Esteemed Stakeholders, Partners, and Friends,</p>
+                        <p class="text-gray-600 mb-4">With immense joy and overwhelming anticipation, we, the Tanzania Medical Students’ Association (TAMSA), extend our warmest invitation to each of you to join us in the vibrant city of Dar es Salaam, the heart of the Swahili coast, for the 17th International Scientific Conference & 15th General Assembly—a celebration of innovation, leadership, and transformative action in health.</p>
+                        <p class="text-gray-600 mb-4">From October 4th to 9th, 2025, Tanzania will become a hub of energy and ideas, uniting hundreds of medical students, healthcare experts, institutions, and stakeholders.</p>
+                        <p class="text-gray-600 mb-4">We are standing at the brink of a new era in healthcare—where innovation meets compassion, and artificial intelligence walks hand in hand with human touch. This year’s conference is more than an event—it’s a movement. A convergence of minds from across Tanzania, Africa, and beyond. A fertile ground for knowledge exchange, policy dialogue, research presentations, and collaborative action that will ripple across communities and institutions alike.</p>
+                        <p class="text-gray-600">We can’t wait to welcome you to Dar es Salaam—where ideas will soar, collaborations will blossom, and lifelong memories will be made.</p>
+                        <p class="text-gray-700 font-medium mt-6">Dr. John Doe<br>Chairperson, GA Organizing Committee</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Committee Section -->
+    <div id="committee" class="section-with-bg py-16" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+        <div class="container mx-auto px-6 section-content">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">Organizing Committee</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Committee Member 1 -->
+                <div class="committee-card glass-card rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 bg-[#1a6ac3] flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Committee Member" class="h-full w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Seleman</h3>
+                        <p class="text-[#1a6ac3] mb-3">Assisstant Chairperson</p>
+                        <p class="text-gray-600">Enthusiast Leader from Kairuki University</p>
+                        <div class="mt-4 flex space-x-3">
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Committee Member 2 -->
+                <div class="committee-card glass-card rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 bg-[#1a6ac3] flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Committee Member" class="h-full w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Prof. Elena Rodriguez</h3>
+                        <p class="text-[#1a6ac3] mb-3">Finance Chair</p>
+                        <p class="text-gray-600">Director of Financial Planning at MIT with expertise in academic budgeting and resource allocation.</p>
+                        <div class="mt-4 flex space-x-3">
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Committee Member 3 -->
+                <div class="committee-card glass-card rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 bg-[#1a6ac3] flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Committee Member" class="h-full w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Dr. James Wilson</h3>
+                        <p class="text-[#1a6ac3] mb-3">Logistics Chair</p>
+                        <p class="text-gray-600">Event management specialist with experience organizing over 50 international conferences.</p>
+                        <div class="mt-4 flex space-x-3">
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Committee Member 4 -->
+                <div class="committee-card glass-card rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 bg-[#1a6ac3] flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Committee Member" class="h-full w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Dr. Priya Patel</h3>
+                        <p class="text-[#1a6ac3] mb-3">Publicity Chair</p>
+                        <p class="text-gray-600">Marketing professor at NYU with expertise in digital communication strategies.</p>
+                        <div class="mt-4 flex space-x-3">
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Committee Member 5 -->
+                <div class="committee-card glass-card rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 bg-[#1a6ac3] flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Committee Member" class="h-full w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Prof. David Kim</h3>
+                        <p class="text-[#1a6ac3] mb-3">Technical Chair</p>
+                        <p class="text-gray-600">Renowned researcher in machine learning and AI ethics at University of Toronto.</p>
+                        <div class="mt-4 flex space-x-3">
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Committee Member 6 -->
+                <div class="committee-card glass-card rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 bg-[#1a6ac3] flex items-center justify-center">
+                        <img src="images/murtaza.jpeg" alt="Committee Member" class="h-full w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Dr. Angela Smith</h3>
+                        <p class="text-[#1a6ac3] mb-3">Sponsorship Chair</p>
+                        <p class="text-gray-600">Industry relations expert with connections to major tech companies and research institutions.</p>
+                        <div class="mt-4 flex space-x-3">
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-[#1a6ac3] hover:text-[#213874]"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resources Section -->
+    <div class="section-with-bg py-16" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+        <div class="container mx-auto px-6 section-content">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">Conference Resources</h2>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Invitation Package -->
+                <div class="glass-card rounded-xl shadow-md overflow-hidden">
+                    <div class="h-48 bg-[#1a6ac3] flex items-center justify-center">
+                        <i class="fas fa-file-pdf text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Invitation Package</h3>
+                        <p class="text-gray-600 mb-4">Download our complete invitation package containing all the details about the conference, including schedule, venue information, and registration details.</p>
+                        <button class="download-btn bg-[#1a6ac3] hover:bg-[#213874] text-white px-6 py-3 rounded-full font-medium transition flex items-center">
+                            <span class="mr-2">Download</span>
+                            <span class="download-icon"><i class="fas fa-download"></i></span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Survival Kits -->
+                <div class="glass-card rounded-xl shadow-md overflow-hidden">
+                    <div class="h-48 bg-[#1a6ac3] flex items-center justify-center">
+                        <i class="fas fa-toolbox text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Survival Kits</h3>
+                        <p class="text-gray-600 mb-4">Access our survival kits designed to help you make the most of your conference experience, including networking tips, presentation guidelines, and local area information.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <button class="bg-[#1a6ac3] hover:bg-[#213874] text-white px-4 py-2 rounded-full font-medium text-sm transition">Attendee Kit</button>
+                            <button class="bg-[#1a6ac3] hover:bg-[#213874] text-white px-4 py-2 rounded-full font-medium text-sm transition">Speaker Kit</button>
+                            <button class="bg-[#1a6ac3] hover:bg-[#213874] text-white px-4 py-2 rounded-full font-medium text-sm transition">Visitor Kit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#213874] text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <img src="images/Tamsa logo (1).png" alt="TAMSA Logo" class="h-12 mb-4">
+                    <p class="text-gray-300">TAMSA is a member of the International Federation for Medical Students' Associations (IFMSA), which is one of the world's oldest and largest student-run organizations recognized by the World Health Organization as an official international forum for Medical Students.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Program</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Speakers</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Venue</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>Muhimbili University of Health & Allied Sciences (MUHAS), United Nations Road, Upanga, Ilala Tanzania.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3"></i>
+                            <span>scopi@tamsatanzania.org</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                            <span>+255 768 924 035</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://www.instagram.com/tamsatanzania?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-gray-300 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-medium mb-2">Subscribe to Newsletter</h4>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md text-gray-900 w-full">
+                            <button class="bg-[#1a6ac3] px-4 py-2 rounded-r-md hover:bg-[#213874] transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 TAMSA 15th GA and 17th ISC. All rights reserved.|Developed by MOFAS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('opacity-0');
+            menu.classList.toggle('-translate-y-4');
+            
+            if (!menu.classList.contains('hidden')) {
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0');
+                    menu.classList.remove('-translate-y-4');
+                }, 20);
+            }
+        });
+        
+        // Download button animation
+        document.querySelectorAll('.download-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // In a real implementation, this would trigger the download
+                alert('Download started! (This is a demo)');
+            });
+        });
+        
+        // Survival kit buttons
+        document.querySelectorAll('.bg-[#1a6ac3]').forEach(button => {
+            if (button.textContent.includes('Kit')) {
+                button.addEventListener('click', function() {
+                    const kitType = this.textContent.trim();
+                    alert(`Opening ${kitType} (This is a demo)`);
+                });
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

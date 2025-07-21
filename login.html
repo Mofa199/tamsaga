@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAMS Tanzania - Member Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .bg-custom {
+            background-image: url('images/mootcourt\ knockout.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .input-effect {
+            transition: all 0.3s ease;
+        }
+        
+        .input-effect:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-custom flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <div class="glass-effect p-8 rounded-xl shadow-2xl">
+            <div class="text-center mb-8">
+                <img src="images/wite bg.png" alt="TAMSA Logo" class="mx-auto h-20 w-20 rounded-full border-2 border-white shadow-md">
+                <h1 class="mt-4 text-3xl font-bold text-white">TAMSA Tanzania</h1>
+                <p class="mt-2 text-white opacity-80">Member Portal Access</p>
+            </div>
+            
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label for="memberNumber" class="block text-sm font-medium text-white">Member Number</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-id-card text-gray-300"></i>
+                        </div>
+                        <input type="text" id="memberNumber" name="memberNumber" 
+                               class="input-effect block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md bg-white bg-opacity-90 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                               placeholder="Enter your member number" required>
+                    </div>
+                </div>
+                
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Continue to Payment
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-xs text-white opacity-70">
+                    Need help? Contact support at <a href="mailto:support@tamsatanzania.org" class="text-blue-300 hover:underline">support@tamsatanzania.org</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const memberNumber = document.getElementById('memberNumber').value.trim();
+            
+            if (memberNumber) {
+                // Redirect to the payment page with the member number
+                window.location.href = `https://tamsatanzania.org/eventsmember/${memberNumber}/payment/`;
+            } else {
+                // Show error if field is empty
+                alert('Please enter your member number');
+            }
+        });
+        
+        // Animation for the form
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('.glass-effect');
+            form.style.opacity = '0';
+            form.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                form.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                form.style.opacity = '1';
+                form.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

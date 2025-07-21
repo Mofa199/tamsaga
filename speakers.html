@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAMSA GA 25 Speakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .speaker-card:hover .speaker-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .speaker-overlay {
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+        .filter-btn.active {
+            background-color: #1a6ac3;
+            color: white;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #1a6ac3, #213874);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .speaker-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .speaker-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #1a6ac3;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .section-bg {
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        .section-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(33, 56, 116, 0.85);
+        }
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 106, 195, 0.2);
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white/80 glass-effect shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/Tamsa logo (1).png" alt="IFMSA Logo" class="h-10">
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition nav-link">Home</a>
+                    <a href="about.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition nav-link">About</a>
+                    <a href="program.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition nav-link">Program</a>
+                    <a href="speakers.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition nav-link">Speakers</a>
+                    <a href="venue.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition nav-link">Venue</a>
+                    <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-[#1a6ac3] text-white px-4 py-2 rounded-md font-medium hover:bg-[#213874] transition">Register</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-toggle" class="text-[#213874]">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden flex-col space-y-4 px-4 pb-4 bg-white/80 glass-effect shadow-lg absolute top-16 left-0 w-full transition-all duration-300 transform -translate-y-4 opacity-0">
+            <a href="index.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Home |</a>
+            <a href="about.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> About |</a>
+            <a href="program.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Program |</a>
+            <a href="speakers.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Speakers |</a>
+            <a href="venue.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Venue </a>
+            <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-[#1a6ac3] text-white px-4 py-2 rounded-md font-medium hover:bg-[#213874] transition">Register</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section class="relative text-white py-20 overflow-hidden h-[80vh] flex items-center">
+        <video autoplay muted loop class="hero-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-science-fiction-technology-loop-158-large.mp4" type="video/mp4">
+        </video>
+        <div class="bg-overlay"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="glass-effect p-8 md:p-12 max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Meet Our <span class="gradient-text">Speakers</span>
+                </h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
+                    Learn from the brightest minds shaping the future of technology
+                </p>
+                <div class="mt-8 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <input type="text" id="hero-search" placeholder="Search speakers..." class="w-full pl-12 pr-6 py-3 rounded-full border-0 bg-white/20 backdrop-blur-sm focus:ring-2 focus:ring-[#1a6ac3] text-white placeholder-blue-200">
+                        <i class="fas fa-search absolute left-4 top-3.5 text-blue-200"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-8 shadow-sm section-bg" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-wrap justify-center gap-3 mb-6">
+                <button class="filter-btn active px-5 py-2 rounded-full border border-white/20 hover:bg-white/10 transition-all duration-200 shadow-sm glass-effect text-white" data-filter="all">
+                    <i class="fas fa-users mr-2"></i> All Speakers
+                </button>
+                <button class="filter-btn px-5 py-2 rounded-full border border-white/20 hover:bg-white/10 transition-all duration-200 shadow-sm glass-effect text-white" data-filter="keynote">
+                    <i class="fas fa-star mr-2"></i> Keynote
+                </button>
+                <button class="filter-btn px-5 py-2 rounded-full border border-white/20 hover:bg-white/10 transition-all duration-200 shadow-sm glass-effect text-white" data-filter="ai">
+                    <i class="fas fa-brain mr-2"></i> AI & ML
+                </button>
+                <button class="filter-btn px-5 py-2 rounded-full border border-white/20 hover:bg-white/10 transition-all duration-200 shadow-sm glass-effect text-white" data-filter="web">
+                    <i class="fas fa-code mr-2"></i> Web Dev
+                </button>
+                <button class="filter-btn px-5 py-2 rounded-full border border-white/20 hover:bg-white/10 transition-all duration-200 shadow-sm glass-effect text-white" data-filter="cloud">
+                    <i class="fas fa-cloud mr-2"></i> Cloud
+                </button>
+                <button class="filter-btn px-5 py-2 rounded-full border border-white/20 hover:bg-white/10 transition-all duration-200 shadow-sm glass-effect text-white" data-filter="security">
+                    <i class="fas fa-shield-alt mr-2"></i> Security
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Grid -->
+    <section class="py-12 section-bg" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Speaker 1 -->
+                <div class="speaker-card glass-effect rounded-xl overflow-hidden shadow-lg" data-category="keynote">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Speaker" class="w-full h-72 object-cover">
+                        <div class="speaker-overlay absolute inset-0 bg-gradient-to-t from-[#213874] via-[#1a6ac3]/70 to-transparent opacity-0 flex flex-col justify-end items-center p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-1">Sarah Johnson</h3>
+                            <p class="text-sm mb-4 opacity-90">CEO, Tech Innovations Inc.</p>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fas fa-globe"></i></a>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-[#1a6ac3] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-xl font-bold text-[#213874] mb-1">Sarah Johnson</h3>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#1a6ac3]/20 text-[#1a6ac3]">Keynote Speaker</span>
+                            </div>
+                            <div class="text-[#1a6ac3]">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-[#213874] text-sm">Leading expert in digital transformation with 15+ years of experience helping Fortune 500 companies adapt to technological changes.</p>
+                        <div class="mt-4 pt-4 border-t border-[#1a6ac3]/20 flex justify-between items-center">
+                            <span class="text-xs text-[#213874]"><i class="fas fa-calendar-alt mr-1"></i> Day 1 - 10:00 AM</span>
+                            <button class="text-xs text-[#1a6ac3] hover:text-[#213874] font-medium flex items-center">
+                                Add to schedule <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker 2 -->
+                <div class="speaker-card glass-effect rounded-xl overflow-hidden shadow-lg" data-category="ai">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Speaker" class="w-full h-72 object-cover">
+                        <div class="speaker-overlay absolute inset-0 bg-gradient-to-t from-[#213874] via-[#1a6ac3]/70 to-transparent opacity-0 flex flex-col justify-end items-center p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-1">Michael Chen</h3>
+                            <p class="text-sm mb-4 opacity-90">AI Research Lead, DeepMind</p>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fas fa-globe"></i></a>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-[#1a6ac3] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-xl font-bold text-[#213874] mb-1">Michael Chen</h3>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#1a6ac3]/20 text-[#1a6ac3]">AI & Machine Learning</span>
+                            </div>
+                            <div class="text-[#1a6ac3]">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                        </div>
+                        <p class="text-[#213874] text-sm">Pioneer in neural network architectures and author of several groundbreaking papers on deep learning applications.</p>
+                        <div class="mt-4 pt-4 border-t border-[#1a6ac3]/20 flex justify-between items-center">
+                            <span class="text-xs text-[#213874]"><i class="fas fa-calendar-alt mr-1"></i> Day 2 - 2:30 PM</span>
+                            <button class="text-xs text-[#1a6ac3] hover:text-[#213874] font-medium flex items-center">
+                                Add to schedule <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker 3 -->
+                <div class="speaker-card glass-effect rounded-xl overflow-hidden shadow-lg" data-category="web">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Speaker" class="w-full h-72 object-cover">
+                        <div class="speaker-overlay absolute inset-0 bg-gradient-to-t from-[#213874] via-[#1a6ac3]/70 to-transparent opacity-0 flex flex-col justify-end items-center p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-1">Emma Rodriguez</h3>
+                            <p class="text-sm mb-4 opacity-90">Senior Developer, GitHub</p>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fas fa-globe"></i></a>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-[#1a6ac3] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-xl font-bold text-[#213874] mb-1">Emma Rodriguez</h3>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#1a6ac3]/20 text-[#1a6ac3]">Web Development</span>
+                            </div>
+                            <div class="text-[#1a6ac3]">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                        <p class="text-[#213874] text-sm">Creator of popular open-source frameworks and advocate for accessible, performant web applications.</p>
+                        <div class="mt-4 pt-4 border-t border-[#1a6ac3]/20 flex justify-between items-center">
+                            <span class="text-xs text-[#213874]"><i class="fas fa-calendar-alt mr-1"></i> Day 1 - 4:15 PM</span>
+                            <button class="text-xs text-[#1a6ac3] hover:text-[#213874] font-medium flex items-center">
+                                Add to schedule <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker 4 -->
+                <div class="speaker-card glass-effect rounded-xl overflow-hidden shadow-lg" data-category="cloud">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Speaker" class="w-full h-72 object-cover">
+                        <div class="speaker-overlay absolute inset-0 bg-gradient-to-t from-[#213874] via-[#1a6ac3]/70 to-transparent opacity-0 flex flex-col justify-end items-center p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-1">David Kim</h3>
+                            <p class="text-sm mb-4 opacity-90">Cloud Architect, AWS</p>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fas fa-globe"></i></a>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-[#1a6ac3] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-xl font-bold text-[#213874] mb-1">David Kim</h3>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#1a6ac3]/20 text-[#1a6ac3]">Cloud Computing</span>
+                            </div>
+                            <div class="text-[#1a6ac3]">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                        </div>
+                        <p class="text-[#213874] text-sm">Expert in scalable cloud infrastructure and serverless architectures with extensive experience in enterprise solutions.</p>
+                        <div class="mt-4 pt-4 border-t border-[#1a6ac3]/20 flex justify-between items-center">
+                            <span class="text-xs text-[#213874]"><i class="fas fa-calendar-alt mr-1"></i> Day 3 - 11:00 AM</span>
+                            <button class="text-xs text-[#1a6ac3] hover:text-[#213874] font-medium flex items-center">
+                                Add to schedule <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker 5 -->
+                <div class="speaker-card glass-effect rounded-xl overflow-hidden shadow-lg" data-category="ai">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/women/25.jpg" alt="Speaker" class="w-full h-72 object-cover">
+                        <div class="speaker-overlay absolute inset-0 bg-gradient-to-t from-[#213874] via-[#1a6ac3]/70 to-transparent opacity-0 flex flex-col justify-end items-center p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-1">Priya Patel</h3>
+                            <p class="text-sm mb-4 opacity-90">Data Scientist, OpenAI</p>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fas fa-globe"></i></a>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-[#1a6ac3] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-xl font-bold text-[#213874] mb-1">Priya Patel</h3>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#1a6ac3]/20 text-[#1a6ac3]">AI & Machine Learning</span>
+                            </div>
+                            <div class="text-[#1a6ac3]">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                        </div>
+                        <p class="text-[#213874] text-sm">Specialist in natural language processing and ethical AI, working on making AI systems more transparent and fair.</p>
+                        <div class="mt-4 pt-4 border-t border-[#1a6ac3]/20 flex justify-between items-center">
+                            <span class="text-xs text-[#213874]"><i class="fas fa-calendar-alt mr-1"></i> Day 2 - 9:30 AM</span>
+                            <button class="text-xs text-[#1a6ac3] hover:text-[#213874] font-medium flex items-center">
+                                Add to schedule <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker 6 -->
+                <div class="speaker-card glass-effect rounded-xl overflow-hidden shadow-lg" data-category="web">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Speaker" class="w-full h-72 object-cover">
+                        <div class="speaker-overlay absolute inset-0 bg-gradient-to-t from-[#213874] via-[#1a6ac3]/70 to-transparent opacity-0 flex flex-col justify-end items-center p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-1">James Wilson</h3>
+                            <p class="text-sm mb-4 opacity-90">Frontend Lead, Netflix</p>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fas fa-globe"></i></a>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-[#1a6ac3] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-xl font-bold text-[#213874] mb-1">James Wilson</h3>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#1a6ac3]/20 text-[#1a6ac3]">Web Development</span>
+                            </div>
+                            <div class="text-[#1a6ac3]">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                        <p class="text-[#213874] text-sm">Expert in performance optimization and progressive web apps, helping companies deliver faster user experiences.</p>
+                        <div class="mt-4 pt-4 border-t border-[#1a6ac3]/20 flex justify-between items-center">
+                            <span class="text-xs text-[#213874]"><i class="fas fa-calendar-alt mr-1"></i> Day 3 - 3:45 PM</span>
+                            <button class="text-xs text-[#1a6ac3] hover:text-[#213874] font-medium flex items-center">
+                                Add to schedule <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker 7 -->
+                <div class="speaker-card glass-effect rounded-xl overflow-hidden shadow-lg" data-category="cloud">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Speaker" class="w-full h-72 object-cover">
+                        <div class="speaker-overlay absolute inset-0 bg-gradient-to-t from-[#213874] via-[#1a6ac3]/70 to-transparent opacity-0 flex flex-col justify-end items-center p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-1">Lisa Zhang</h3>
+                            <p class="text-sm mb-4 opacity-90">DevOps Engineer, Google Cloud</p>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fas fa-globe"></i></a>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-[#1a6ac3] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-xl font-bold text-[#213874] mb-1">Lisa Zhang</h3>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#1a6ac3]/20 text-[#1a6ac3]">Cloud Computing</span>
+                            </div>
+                            <div class="text-[#1a6ac3]">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                        </div>
+                        <p class="text-[#213874] text-sm">Specialist in containerization and Kubernetes, helping organizations modernize their infrastructure and deployment pipelines.</p>
+                        <div class="mt-4 pt-4 border-t border-[#1a6ac3]/20 flex justify-between items-center">
+                            <span class="text-xs text-[#213874]"><i class="fas fa-calendar-alt mr-1"></i> Day 1 - 1:30 PM</span>
+                            <button class="text-xs text-[#1a6ac3] hover:text-[#213874] font-medium flex items-center">
+                                Add to schedule <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker 8 -->
+                <div class="speaker-card glass-effect rounded-xl overflow-hidden shadow-lg" data-category="keynote">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Speaker" class="w-full h-72 object-cover">
+                        <div class="speaker-overlay absolute inset-0 bg-gradient-to-t from-[#213874] via-[#1a6ac3]/70 to-transparent opacity-0 flex flex-col justify-end items-center p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-1">Robert Taylor</h3>
+                            <p class="text-sm mb-4 opacity-90">CTO, FutureTech</p>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition"><i class="fas fa-globe"></i></a>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-[#1a6ac3] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-xl font-bold text-[#213874] mb-1">Robert Taylor</h3>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#1a6ac3]/20 text-[#1a6ac3]">Keynote Speaker</span>
+                            </div>
+                            <div class="text-[#1a6ac3]">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-[#213874] text-sm">Visionary leader in emerging technologies with a focus on how businesses can leverage innovation for competitive advantage.</p>
+                        <div class="mt-4 pt-4 border-t border-[#1a6ac3]/20 flex justify-between items-center">
+                            <span class="text-xs text-[#213874]"><i class="fas fa-calendar-alt mr-1"></i> Day 3 - 9:00 AM</span>
+                            <button class="text-xs text-[#1a6ac3] hover:text-[#213874] font-medium flex items-center">
+                                Add to schedule <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <button class="px-8 py-3 bg-gradient-to-r from-[#1a6ac3] to-[#213874] text-white rounded-full font-medium hover:from-[#1a6ac3]/90 hover:to-[#213874]/90 transition-all duration-300 shadow-lg hover:shadow-xl glass-effect">
+                    View All Speakers <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 section-bg" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80')">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-6 glass-effect rounded-xl">
+                    <div class="text-4xl font-bold text-white mb-2">50+</div>
+                    <div class="text-white/90">World-Class Speakers</div>
+                </div>
+                <div class="p-6 glass-effect rounded-xl">
+                    <div class="text-4xl font-bold text-white mb-2">3</div>
+                    <div class="text-white/90">Days of Content</div>
+                </div>
+                <div class="p-6 glass-effect rounded-xl">
+                    <div class="text-4xl font-bold text-white mb-2">100+</div>
+                    <div class="text-white/90">Technical Sessions</div>
+                </div>
+                <div class="p-6 glass-effect rounded-xl">
+                    <div class="text-4xl font-bold text-white mb-2">5000+</div>
+                    <div class="text-white/90">Attendees</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 section-bg" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="glass-effect p-8 md:p-12 max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Join the Tech Revolution?</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto text-white/90">
+                    Secure your spot today and gain access to cutting-edge knowledge, networking opportunities, and exclusive content.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="px-8 py-3 bg-white text-[#1a6ac3] rounded-full font-bold hover:bg-gray-100 transition shadow-lg">
+                        <i class="fas fa-ticket-alt mr-2"></i> Register Now
+                    </button>
+                    <button class="px-8 py-3 border-2 border-white text-white rounded-full font-bold hover:bg-white/10 transition glass-effect">
+                        <i class="far fa-calendar-alt mr-2"></i> View Schedule
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#213874] text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <img src="images/Tamsa logo (1).png" alt="TAMSA Logo" class="h-12 mb-4">
+                    <p class="text-white/80">TAMSA is a member of the International Federation for Medical Students' Associations (IFMSA), which is one of the world's oldest and largest student-run organizations recognized by the World Health Organization as an official international forum for Medical Students.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-white/80 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-white/80 hover:text-white transition">About</a></li>
+                        <li><a href="#" class="text-white/80 hover:text-white transition">Program</a></li>
+                        <li><a href="#" class="text-white/80 hover:text-white transition">Speakers</a></li>
+                        <li><a href="#" class="text-white/80 hover:text-white transition">Venue</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-white/80">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>Muhimbili University of Health & Allied Sciences (MUHAS), United Nations Road, Upanga, Ilala Tanzania.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3"></i>
+                            <span>scopi@tamsatanzania.org</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                            <span>+255 768 924 035</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white/80 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-white/80 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://www.instagram.com/tamsatanzania?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white/80 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-white/80 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="#" class="text-white/80 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-medium mb-2">Subscribe to Newsletter</h4>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md text-gray-900 w-full">
+                            <button class="bg-[#1a6ac3] px-4 py-2 rounded-r-md hover:bg-[#1a6ac3]/90 transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-[#1a6ac3] mt-12 pt-8 text-center text-white/80">
+                <p>&copy; 2025 TAMSA 15th GA and 17th ISC. All rights reserved.|Developed by MOFAS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('-translate-y-4', 'opacity-0');
+                    menu.classList.add('translate-y-0', 'opacity-100');
+                }, 10);
+            } else {
+                menu.classList.remove('translate-y-0', 'opacity-100');
+                menu.classList.add('-translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300);
+            }
+        });
+
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const speakerCards = document.querySelectorAll('.speaker-card');
+            const searchInputs = document.querySelectorAll('input[type="text"]');
+            
+            // Filter by category
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active state
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    speakerCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Search functionality
+            searchInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    
+                    speakerCards.forEach(card => {
+                        const name = card.querySelector('h3').textContent.toLowerCase();
+                        const bio = card.querySelectorAll('p')[1].textContent.toLowerCase();
+                        const category = card.querySelector('span').textContent.toLowerCase();
+                        
+                        if (name.includes(searchTerm) || bio.includes(searchTerm) || category.includes(searchTerm)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAMSA GA Activities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #1a6ac3, #213874);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .activity-card:hover .activity-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .activity-overlay {
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+        .filter-btn.active {
+            background-color: #1a6ac3;
+            color: white;
+        }
+        
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .glass-dark {
+            background: rgba(33, 56, 116, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        /* Video background container */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Section backgrounds */
+        .filter-section-bg {
+            background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .activities-grid-bg {
+            background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .featured-activities-bg {
+            background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+        }
+        
+        .stats-section-bg {
+            background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .testimonials-bg {
+            background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .timeline-bg {
+            background-image: url('https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .cta-bg {
+            background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        /* Overlay for background images */
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 106, 195, 0.7);
+            z-index: 0;
+        }
+        
+        /* Content wrapper to position above overlay */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/Tamsa logo (1).png" alt="IFMSA Logo" class="h-10">
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Home</a>
+                    <a href="about.html" class="text-blue-900 font-medium hover:text-blue-600 transition">About</a>
+                    <a href="program.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Program</a>
+                    <a href="speakers.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Speakers</a>
+                    <a href="venue.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Venue</a>
+                    <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition">Register</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-toggle" class="text-blue-900">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden flex-col space-y-4 px-4 pb-4 bg-white shadow-lg absolute top-16 left-0 w-full transition-all duration-300 transform -translate-y-4 opacity-0">
+            <a href="index.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Home |</a>
+            <a href="#" class="text-blue-900 font-medium hover:text-blue-600 transition"> About |</a>
+            <a href="#" class="text-blue-900 font-medium hover:text-blue-600 transition"> Program |</a>
+            <a href="#" class="text-blue-900 font-medium hover:text-blue-600 transition"> Speakers |</a>
+            <a href="#" class="text-blue-900 font-medium hover:text-blue-600 transition"> Venue </a>
+            <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition">Register</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="video-background">
+            <video autoplay muted loop>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-medical-team-in-a-meeting-39839-large.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <div class="content-wrapper text-center px-4 z-10">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 fade-in">Our Activities</h1>
+            <p class="text-xl text-white max-w-2xl mx-auto fade-in delay-1">Discover the wide range of activities organized by TAMSA during this year's General Assembly and International Scientific Conference</p>
+            <div class="mt-8 fade-in delay-2">
+                <a href="#activities" class="glass bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300 inline-block">Explore Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-16 filter-section-bg parallax relative">
+        <div class="bg-overlay"></div>
+        <div class="content-wrapper container mx-auto px-4">
+            <div class="glass p-8 rounded-xl">
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button class="filter-btn active px-6 py-2 rounded-full border border-white text-white hover:bg-white hover:text-blue-600 transition" data-filter="all">All Activities</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-white text-white hover:bg-white hover:text-blue-600 transition" data-filter="workshop">Workshops</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-white text-white hover:bg-white hover:text-blue-600 transition" data-filter="plenary">Plenaries</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-white text-white hover:bg-white hover:text-blue-600 transition" data-filter="social">Social Events</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-white text-white hover:bg-white hover:text-blue-600 transition" data-filter="committee">Committee Meetings</button>
+                </div>
+                
+                <div class="flex justify-center mb-8">
+                    <div class="relative w-full max-w-md">
+                        <input type="text" id="activity-search" placeholder="Search activities..." class="w-full px-6 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <button class="absolute right-3 top-3 text-gray-400 hover:text-blue-500" id="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Grid -->
+    <section class="py-16 activities-grid-bg parallax relative">
+        <div class="bg-overlay"></div>
+        <div class="content-wrapper container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Activity Card 1 -->
+                <div class="activity-card glass bg-white bg-opacity-90 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300" data-category="workshop">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Workshop" class="w-full h-48 object-cover">
+                        <div class="absolute bottom-0 left-0 bg-blue-600 text-white px-3 py-1 text-sm font-medium">Workshop</div>
+                        <div class="activity-overlay absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0">
+                            <a href="#" class="bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Leadership Development Workshop</h3>
+                        <p class="text-gray-600 mb-4">Enhance your leadership skills with this interactive workshop designed for future healthcare leaders.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>Aug 15, 2023</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-clock mr-2"></i>
+                                <span>14:00 - 16:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Card 2 -->
+                <div class="activity-card glass bg-white bg-opacity-90 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300" data-category="plenary">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2e407?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Plenary" class="w-full h-48 object-cover">
+                        <div class="absolute bottom-0 left-0 bg-green-600 text-white px-3 py-1 text-sm font-medium">Plenary</div>
+                        <div class="activity-overlay absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0">
+                            <a href="#" class="bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Opening Ceremony</h3>
+                        <p class="text-gray-600 mb-4">Official opening of the IFMSA General Assembly with keynote speeches and cultural performances.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>Aug 14, 2023</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-clock mr-2"></i>
+                                <span>09:00 - 11:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Card 3 -->
+                <div class="activity-card glass bg-white bg-opacity-90 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300" data-category="social">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Social Event" class="w-full h-48 object-cover">
+                        <div class="absolute bottom-0 left-0 bg-purple-600 text-white px-3 py-1 text-sm font-medium">Social Event</div>
+                        <div class="activity-overlay absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0">
+                            <a href="#" class="bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Cultural Night</h3>
+                        <p class="text-gray-600 mb-4">Experience the diversity of IFMSA through performances, food, and cultural exchange.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>Aug 16, 2023</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-clock mr-2"></i>
+                                <span>19:00 - 23:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Card 4 -->
+                <div class="activity-card glass bg-white bg-opacity-90 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300" data-category="committee">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30794b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Committee Meeting" class="w-full h-48 object-cover">
+                        <div class="absolute bottom-0 left-0 bg-yellow-600 text-white px-3 py-1 text-sm font-medium">Committee Meeting</div>
+                        <div class="activity-overlay absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0">
+                            <a href="#" class="bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">SCORP Working Group</h3>
+                        <p class="text-gray-600 mb-4">Discussion on current projects and future initiatives for the Standing Committee on Refugees and Peace.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>Aug 15, 2023</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-clock mr-2"></i>
+                                <span>10:00 - 12:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Card 5 -->
+                <div class="activity-card glass bg-white bg-opacity-90 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300" data-category="workshop">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Workshop" class="w-full h-48 object-cover">
+                        <div class="absolute bottom-0 left-0 bg-blue-600 text-white px-3 py-1 text-sm font-medium">Workshop</div>
+                        <div class="activity-overlay absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0">
+                            <a href="#" class="bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Global Health Advocacy</h3>
+                        <p class="text-gray-600 mb-4">Learn how to effectively advocate for global health issues in your local community and beyond.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>Aug 16, 2023</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-clock mr-2"></i>
+                                <span>13:00 - 15:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Card 6 -->
+                <div class="activity-card glass bg-white bg-opacity-90 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300" data-category="plenary">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Plenary" class="w-full h-48 object-cover">
+                        <div class="absolute bottom-0 left-0 bg-green-600 text-white px-3 py-1 text-sm font-medium">Plenary</div>
+                        <div class="activity-overlay absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0">
+                            <a href="#" class="bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Closing Ceremony</h3>
+                        <p class="text-gray-600 mb-4">Official closing of the IFMSA General Assembly with awards, recognitions, and farewell speeches.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>Aug 18, 2023</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <i class="far fa-clock mr-2"></i>
+                                <span>16:00 - 18:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-12 flex justify-center">
+                <nav class="flex items-center space-x-2" id="pagination-nav">
+                    <button class="glass px-4 py-2 border rounded-md text-white border-white hover:bg-white hover:text-blue-600" id="prev-page" disabled>&laquo; Previous</button>
+                    <div class="flex space-x-2" id="page-numbers"></div>
+                    <button class="glass px-4 py-2 border rounded-md text-white border-white hover:bg-white hover:text-blue-600" id="next-page">Next &raquo;</button>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="activities" class="py-16 featured-activities-bg parallax relative">
+        <div class="bg-overlay"></div>
+        <div class="content-wrapper container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 fade-in">Featured Activities</h2>
+                <div class="w-24 h-1 bg-white mx-auto mb-6 fade-in delay-1"></div>
+                <p class="text-white max-w-2xl mx-auto fade-in delay-2">Our activities are designed to provide medical students with opportunities for professional development, global health education, and cultural exchange.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Activity Card 1 -->
+                <div class="glass-dark rounded-xl shadow-md overflow-hidden card-hover fade-in delay-1">
+                    <div class="h-48 flex items-center justify-center">
+                        <i class="fas fa-globe-americas text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-3">Global Health</h3>
+                        <p class="text-gray-200 mb-4">Engage in global health initiatives, advocacy campaigns, and educational programs that address health inequalities worldwide.</p>
+                        <a href="#" class="text-white font-medium hover:text-blue-200 transition flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Activity Card 2 -->
+                <div class="glass-dark rounded-xl shadow-md overflow-hidden card-hover fade-in delay-2">
+                    <div class="h-48 flex items-center justify-center">
+                        <i class="fas fa-hands-helping text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-3">Professional Exchange</h3>
+                        <p class="text-gray-200 mb-4">Participate in clinical and research exchanges to gain international experience and broaden your medical perspective.</p>
+                        <a href="#" class="text-white font-medium hover:text-blue-200 transition flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Activity Card 3 -->
+                <div class="glass-dark rounded-xl shadow-md overflow-hidden card-hover fade-in delay-3">
+                    <div class="h-48 flex items-center justify-center">
+                        <i class="fas fa-book-medical text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-3">Medical Education</h3>
+                        <p class="text-gray-200 mb-4">Access workshops, training sessions, and resources to enhance your medical education and professional skills.</p>
+                        <a href="#" class="text-white font-medium hover:text-blue-200 transition flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Activity Card 4 -->
+                <div class="glass-dark rounded-xl shadow-md overflow-hidden card-hover fade-in delay-2">
+                    <div class="h-48 flex items-center justify-center">
+                        <i class="fas fa-users text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-3">Public Health</h3>
+                        <p class="text-gray-200 mb-4">Join community health projects and public health campaigns to make a tangible impact on local and global health.</p>
+                        <a href="#" class="text-white font-medium hover:text-blue-200 transition flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Activity Card 5 -->
+                <div class="glass-dark rounded-xl shadow-md overflow-hidden card-hover fade-in delay-3">
+                    <div class="h-48 flex items-center justify-center">
+                        <i class="fas fa-dna text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-3">Research</h3>
+                        <p class="text-gray-200 mb-4">Participate in research projects, publications, and conferences to contribute to medical knowledge and innovation.</p>
+                        <a href="#" class="text-white font-medium hover:text-blue-200 transition flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Activity Card 6 -->
+                <div class="glass-dark rounded-xl shadow-md overflow-hidden card-hover fade-in delay-4">
+                    <div class="h-48 flex items-center justify-center">
+                        <i class="fas fa-hand-holding-heart text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-3">Human Rights</h3>
+                        <p class="text-gray-200 mb-4">Advocate for health as a human right through awareness campaigns, policy work, and community engagement.</p>
+                        <a href="#" class="text-white font-medium hover:text-blue-200 transition flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 stats-section-bg parallax relative">
+        <div class="bg-overlay"></div>
+        <div class="content-wrapper container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="fade-in">
+                    <div class="text-5xl font-bold mb-2 text-white">15+</div>
+                    <div class="text-xl text-white">Chapters</div>
+                </div>
+                <div class="fade-in delay-1">
+                    <div class="text-5xl font-bold mb-2 text-white">1.3M+</div>
+                    <div class="text-xl text-white">Medical Students</div>
+                </div>
+                <div class="fade-in delay-2">
+                    <div class="text-5xl font-bold mb-2 text-white">50+</div>
+                    <div class="text-xl text-white">Years of Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 testimonials-bg parallax relative">
+        <div class="bg-overlay"></div>
+        <div class="content-wrapper container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 fade-in">What Our Members Say</h2>
+                <div class="w-24 h-1 bg-white mx-auto mb-6 fade-in delay-1"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="glass p-8 rounded-xl fade-in delay-1">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 text-xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-white mb-6">"Participating in TAMSA activities transformed my medical school experience. The global perspective I gained is invaluable."</p>
+                    <div class="flex items-center">
+                        <img src="images/murtaza.jpeg" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">Sarah Johnson</h4>
+                            <p class="text-gray-200">Medical Student, CUHAS</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass p-8 rounded-xl fade-in delay-2">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 text-xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-white mb-6">"The professional exchange program gave me clinical experience I couldn't get at home. It was life-changing!"</p>
+                    <div class="flex items-center">
+                        <img src="images/murtaza.jpeg" alt="Carlos Mendez" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">Carlos Ally</h4>
+                            <p class="text-gray-200">Medical Student, UDSM Mbeya</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass p-8 rounded-xl fade-in delay-3">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 text-xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-white mb-6">"TAMSA connected me with like-minded peers from around the world. The networking opportunities are incredible."</p>
+                    <div class="flex items-center">
+                        <img src="images/murtaza.jpeg" alt="Aisha Diallo" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">Marygoreth Respicius</h4>
+                            <p class="text-gray-200">Medical Student, SJUCHAS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-16 timeline-bg parallax relative">
+        <div class="bg-overlay"></div>
+        <div class="content-wrapper container mx-auto px-4">
+            <div class="mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-white mb-8 flex items-center justify-center">
+                    <i class="fas fa-history text-white mr-3"></i> IFMSA GA Timeline
+                </h2>
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="border-l-2 border-white absolute h-full left-1/2 transform -translate-x-1/2"></div>
+                    
+                    <!-- Timeline items container -->
+                    <div class="space-y-8">
+                        <!-- Timeline item 1 -->
+                        <div class="relative flex items-center">
+                            <div class="flex-1 pr-8 text-right">
+                                <h3 class="text-xl font-bold text-white">Taipei, Taiwan</h3>
+                                <p class="text-gray-200">August 2024</p>
+                                <p class="text-gray-200">72nd IFMSA General Assembly</p>
+                            </div>
+                            <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="flex-1 pl-8">
+                                <div class="glass p-4 rounded-lg shadow-md">
+                                    <img src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Taipei" class="w-full h-32 object-cover rounded mb-2">
+                                    <p class="text-white text-sm">Upcoming event in the vibrant capital of Taiwan</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Timeline item 2 -->
+                        <div class="relative flex items-center">
+                            <div class="flex-1 pr-8 text-right">
+                                <div class="glass p-4 rounded-lg shadow-md">
+                                    <img src="https://images.unsplash.com/photo-1538970272646-f61fabb3bfdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Cairo" class="w-full h-32 object-cover rounded mb-2">
+                                    <p class="text-white text-sm">Historic event in the heart of Egypt</p>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <div class="flex-1 pl-8">
+                                <h3 class="text-xl font-bold text-white">Cairo, Egypt</h3>
+                                <p class="text-gray-200">March 2023</p>
+                                <p class="text-gray-200">71st IFMSA General Assembly</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Timeline item 3 -->
+                        <div class="relative flex items-center">
+                            <div class="flex-1 pr-8 text-right">
+                                <h3 class="text-xl font-bold text-white">Paris, France</h3>
+                                <p class="text-gray-200">August 2022</p>
+                                <p class="text-gray-200">70th IFMSA General Assembly</p>
+                            </div>
+                            <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
+                                <i class="fas fa-umbrella-beach"></i>
+                            </div>
+                            <div class="flex-1 pl-8">
+                                <div class="glass p-4 rounded-lg shadow-md">
+                                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Paris" class="w-full h-32 object-cover rounded mb-2">
+                                    <p class="text-white text-sm">Memorable assembly in the City of Light</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 cta-bg parallax relative">
+        <div class="bg-overlay"></div>
+        <div class="content-wrapper container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 fade-in">Ready to Get Involved?</h2>
+            <p class="text-xl text-white max-w-2xl mx-auto mb-8 fade-in delay-1">Join thousands of medical students worldwide in making a difference through TAMSA activities.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in delay-2">
+                <a href="#" class="glass bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300 inline-block">Join Now</a>
+                <a href="#" class="glass bg-transparent border-2 border-white px-8 py-3 rounded-full font-semibold text-white hover:bg-white hover:text-blue-600 transition duration-300 inline-block">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <img src="images/Tamsa logo (1).png" alt="TAMSA Logo" class="h-12 mb-4">
+                    <p class="text-gray-400">TAMSA is a member of the International Federation for Medical Students' Associations (IFMSA), which is one of the world's oldest and largest student-run organizations recognized by the World Health Organization as an official international forum for Medical Students.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition">About</a></li>
+                        <li><a href="program.html" class="text-gray-400 hover:text-white transition">Program</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Speakers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Venue</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>Muhimbili University of Health & Allied Sciences (MUHAS), United Nations Road, Upanga, Ilala Tanzania.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3"></i>
+                            <span>scopi@tamsatanzania.org</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                            <span>+255 768 924 035</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://www.instagram.com/tamsatanzania?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-medium mb-2">Subscribe to Newsletter</h4>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md text-gray-900 w-full">
+                            <button class="bg-blue-600 px-4 py-2 rounded-r-md hover:bg-blue-700 transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 TAMSA 15th GA and 17th ISC. All rights reserved.|Developed by MOFAS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation trigger
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Initial check
+            fadeInOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', fadeInOnScroll);
+        });
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('opacity-0');
+            mobileMenu.classList.toggle('-translate-y-4');
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const itemsPerPage = 6;
+            let currentPage = 1;
+            let filteredCards = Array.from(document.querySelectorAll('.activity-card'));
+            
+            // Filter by category
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    filteredCards = Array.from(document.querySelectorAll('.activity-card'))
+                        .filter(card => filterValue === 'all' || card.getAttribute('data-category') === filterValue);
+                    
+                    currentPage = 1;
+                    updateDisplay();
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('activity-search');
+            const searchButton = document.getElementById('search-button');
+            
+            const performSearch = () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                filteredCards = Array.from(document.querySelectorAll('.activity-card'))
+                    .filter(card => {
+                        const title = card.querySelector('h3').textContent.toLowerCase();
+                        const description = card.querySelector('p').textContent.toLowerCase();
+                        return title.includes(searchTerm) || description.includes(searchTerm);
+                    });
+                                
+                currentPage = 1;
+                updateDisplay();
+            };
+            
+            searchInput.addEventListener('input', performSearch);
+            searchButton.addEventListener('click', performSearch);
+            
+            // Pagination
+            const prevButton = document.getElementById('prev-page');
+            const nextButton = document.getElementById('next-page');
+            const pageNumbers = document.getElementById('page-numbers');
+            
+            function updateDisplay() {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const paginatedCards = filteredCards.slice(startIndex, endIndex);
+                
+                // Hide all cards
+                document.querySelectorAll('.activity-card').forEach(card => {
+                    card.style.display = 'none';
+                });
+                
+                // Show only current page cards
+                paginatedCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                
+                // Update pagination buttons
+                prevButton.disabled = currentPage === 1;
+                nextButton.disabled = endIndex >= filteredCards.length;
+                
+                // Update page numbers
+                const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
+                pageNumbers.innerHTML = '';
+                
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.className = `px-4 py-2 border rounded-md ${currentPage === i ? 'bg-blue-600 text-white' : 'text-white border-white hover:bg-white hover:text-blue-600'}`;
+                    pageButton.textContent = i;
+                    pageButton.addEventListener('click', () => {
+                        currentPage = i;
+                        updateDisplay();
+                    });
+                    pageNumbers.appendChild(pageButton);
+                }
+            }
+            
+            prevButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateDisplay();
+                }
+            });
+            
+            nextButton.addEventListener('click', () => {
+                if ((currentPage * itemsPerPage) < filteredCards.length) {
+                    currentPage++;
+                    updateDisplay();
+                }
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('button.md\\:hidden');
+            mobileMenuButton.addEventListener('click', function() {
+                alert('Mobile menu would open here in a full implementation');
+            });
+            
+            // Initialize display
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>

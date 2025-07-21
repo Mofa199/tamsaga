@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA Venue - IFMSA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .map-container {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .venue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .gallery-image {
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-image:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        /* Hero video background */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+        
+        /* Section backgrounds */
+        .venue-section {
+            background: linear-gradient(rgba(33, 56, 116, 0.8), rgba(33, 56, 116, 0.8)), 
+                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .gallery-section {
+            background: linear-gradient(rgba(26, 106, 195, 0.8), rgba(26, 106, 195, 0.8)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .transport-section {
+            background: linear-gradient(rgba(33, 56, 116, 0.8), rgba(33, 56, 116, 0.8)), 
+                        url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .attractions-section {
+            background: linear-gradient(rgba(26, 106, 195, 0.8), rgba(26, 106, 195, 0.8)), 
+                        url('https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        @media (max-width: 768px) {
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .gallery-image {
+                height: 150px;
+            }
+            
+            .video-container {
+                height: 80vh;
+            }
+            
+            .venue-section,
+            .gallery-section,
+            .transport-section,
+            .attractions-section {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white/80 shadow-lg sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/Tamsa logo (1).png" alt="IFMSA Logo" class="h-10">
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Home</a>
+                    <a href="about.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">About</a>
+                    <a href="program.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Program</a>
+                    <a href="speakers.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Speakers</a>
+                    <a href="venue.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Venue</a>
+                    <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-[#1a6ac3] text-white px-4 py-2 rounded-md font-medium hover:bg-[#213874] transition">Register</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-toggle" class="text-[#213874]">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden flex-col space-y-4 px-4 pb-4 bg-white/95 shadow-lg absolute top-16 left-0 w-full backdrop-blur-md transition-all duration-300">
+            <a href="index.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Home |</a>
+            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> About |</a>
+            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Program |</a>
+            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Speakers |</a>
+            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Venue </a>
+            <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-[#1a6ac3] text-white px-4 py-2 rounded-md font-medium hover:bg-[#213874] transition">Register</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <header class="relative text-white">
+        <div class="video-container">
+            <video autoplay muted loop playsinline>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-conference-hall-with-empty-seats-1170-large.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="container mx-auto px-4 h-full flex items-center justify-center relative z-10 text-center">
+                <div class="glass p-8 md:p-12 max-w-4xl">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">General Assembly Venue</h1>
+                    <p class="text-xl md:text-2xl mb-8">Discover the location of this year's IFMSA General Assembly</p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#venue" class="bg-white text-[#1a6ac3] px-6 py-3 rounded-lg font-semibold hover:bg-blue-100 transition">Venue Info</a>
+                        <a href="#transport" class="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#1a6ac3] transition">Transportation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Venue Section -->
+        <section id="venue" class="venue-section py-16 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-4">Conference Venue</h2>
+                    <div class="w-20 h-1 bg-white mx-auto"></div>
+                </div>
+                
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="lg:w-2/3">
+                        <div class="glass rounded-xl overflow-hidden venue-card transition duration-300">
+                            <div class="map-container">
+                                <!-- Embedded Google Map -->
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63413.799541089815!2d39.04527002167969!3d-6.601797399999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185cf7d0e5274c25%3A0x61f7e3e45dd24c07!2sAPC%20Hotel%20and%20Conference%20Centre!5e0!3m2!1sen!2stz!4v1752535193206!5m2!1sen!2stz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+                                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                            <div class="p-6 bg-white/90">
+                                <h3 class="text-2xl font-bold text-[#213874] mb-2">Empire State Convention Center</h3>
+                                <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-[#1a6ac3] mr-2"></i> 350 5th Ave, New York, NY 10118, United States</p>
+                                <p class="text-gray-700 mb-4">The Empire State Convention Center is a state-of-the-art facility located in the heart of New York City, offering world-class amenities and versatile spaces perfect for the IFMSA General Assembly.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-blue-100 text-[#1a6ac3] px-3 py-1 rounded-full text-sm"><i class="fas fa-wifi mr-1"></i> Free WiFi</span>
+                                    <span class="bg-blue-100 text-[#1a6ac3] px-3 py-1 rounded-full text-sm"><i class="fas fa-utensils mr-1"></i> Catering</span>
+                                    <span class="bg-blue-100 text-[#1a6ac3] px-3 py-1 rounded-full text-sm"><i class="fas fa-wheelchair mr-1"></i> Accessibility</span>
+                                    <span class="bg-blue-100 text-[#1a6ac3] px-3 py-1 rounded-full text-sm"><i class="fas fa-parking mr-1"></i> Parking</span>
+                                </div>
+                                <a href="#" class="text-[#1a6ac3] font-semibold hover:text-[#213874] transition flex items-center">
+                                    Visit official website <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:w-1/3">
+                        <div class="glass rounded-xl p-6 h-full venue-card transition duration-300 bg-white/90">
+                            <h3 class="text-xl font-bold text-[#213874] mb-4">Venue Highlights</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-users text-[#1a6ac3]"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Capacity</h4>
+                                        <p class="text-gray-600 text-sm">Main hall accommodates up to 2,000 participants</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-door-open text-[#1a6ac3]"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Meeting Rooms</h4>
+                                        <p class="text-gray-600 text-sm">15 breakout rooms of various sizes</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-language text-[#1a6ac3]"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Translation</h4>
+                                        <p class="text-gray-600 text-sm">Simultaneous translation in 6 languages</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-hotel text-[#1a6ac3]"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Accommodation</h4>
+                                        <p class="text-gray-600 text-sm">Special rates at nearby partner hotels</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section py-16 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-4">Venue Gallery</h2>
+                    <div class="w-20 h-1 bg-white mx-auto"></div>
+                </div>
+                
+                <div class="image-gallery">
+                    <div class="glass overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                            alt="Conference Hall" class="gallery-image w-full">
+                    </div>
+                    <div class="glass overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                            alt="Lobby Area" class="gallery-image w-full">
+                    </div>
+                    <div class="glass overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                            alt="Meeting Room" class="gallery-image w-full">
+                    </div>
+                    <div class="glass overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                            alt="Networking Space" class="gallery-image w-full">
+                    </div>
+                    <div class="glass overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                            alt="Catering Area" class="gallery-image w-full">
+                    </div>
+                    <div class="glass overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                            alt="Auditorium" class="gallery-image w-full">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transportation Section -->
+        <section id="transport" class="transport-section py-16 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-4">Getting There</h2>
+                    <div class="w-20 h-1 bg-white mx-auto"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="glass rounded-xl p-6 venue-card transition duration-300 bg-white/90">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-plane text-[#1a6ac3] text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-[#213874]">By Air</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">The nearest airport is John F. Kennedy International Airport (JFK), approximately 25 km from the venue.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
+                                <span>Taxi: ~45 min, $60-80</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
+                                <span>AirTrain + Subway: ~1h 15min, $10.75</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass rounded-xl p-6 venue-card transition duration-300 bg-white/90">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-subway text-[#1a6ac3] text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-[#213874]">Public Transport</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">The venue is easily accessible via New York City's extensive public transportation network.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
+                                <span>Subway: B, D, F, M, N, Q, R, W trains to 34th St-Herald Sq</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
+                                <span>Bus: M5, M7, M20, M34</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass rounded-xl p-6 venue-card transition duration-300 bg-white/90">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-car text-[#1a6ac3] text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-[#213874]">By Car</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">Limited parking is available at the venue and nearby parking garages.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
+                                <span>Venue parking: $40/day</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
+                                <span>Nearby garages: $30-50/day</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nearby Attractions -->
+        <section class="attractions-section py-16 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-4">Nearby Attractions</h2>
+                    <div class="w-20 h-1 bg-white mx-auto"></div>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass rounded-xl overflow-hidden venue-card transition duration-300">
+                        <img src="https://images.unsplash.com/photo-1496442226666-8d50d06b11df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                                alt="Times Square" class="w-full h-40 object-cover">
+                        <div class="p-4 bg-white/90">
+                            <h3 class="font-bold text-lg mb-2">Times Square</h3>
+                            <p class="text-gray-600 text-sm mb-3">0.8 miles from venue</p>
+                            <p class="text-gray-700 text-sm">The bustling heart of Manhattan known for its bright lights and Broadway theaters.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass rounded-xl overflow-hidden venue-card transition duration-300">
+                        <img src="https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                                alt="Central Park" class="w-full h-40 object-cover">
+                        <div class="p-4 bg-white/90">
+                            <h3 class="font-bold text-lg mb-2">Central Park</h3>
+                            <p class="text-gray-600 text-sm mb-3">1.5 miles from venue</p>
+                            <p class="text-gray-700 text-sm">An urban oasis with walking trails, lakes, and recreational activities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass rounded-xl overflow-hidden venue-card transition duration-300">
+                        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                                alt="Statue of Liberty" class="w-full h-40 object-cover">
+                        <div class="p-4 bg-white/90">
+                            <h3 class="font-bold text-lg mb-2">Statue of Liberty</h3>
+                            <p class="text-gray-600 text-sm mb-3">6 miles from venue</p>
+                            <p class="text-gray-700 text-sm">Iconic symbol of freedom accessible by ferry from Battery Park.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass rounded-xl overflow-hidden venue-card transition duration-300">
+                        <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                                alt="Museum of Modern Art" class="w-full h-40 object-cover">
+                        <div class="p-4 bg-white/90">
+                            <h3 class="font-bold text-lg mb-2">Museum of Modern Art</h3>
+                            <p class="text-gray-600 text-sm mb-3">0.7 miles from venue</p>
+                            <p class="text-gray-700 text-sm">World-renowned museum featuring works by Van Gogh, Picasso, and Warhol.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#213874] text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <img src="images/Tamsa logo (1).png" alt="TAMSA Logo" class="h-12 mb-4">
+                    <p class="text-gray-300">TAMSA is a member of the International Federation for Medical Students' Associations (IFMSA), which is one of the world's oldest and largest student-run organizations recognized by the World Health Organization as an official international forum for Medical Students.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Program</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Speakers</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Venue</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>Muhimbili University of Health & Allied Sciences (MUHAS), United Nations Road, Upanga, Ilala Tanzania.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3"></i>
+                            <span>scopi@tamsatanzania.org</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                            <span>+255 768 924 035</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://www.instagram.com/tamsatanzania?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-gray-300 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-medium mb-2">Subscribe to Newsletter</h4>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md text-gray-900 w-full">
+                            <button class="bg-[#1a6ac3] px-4 py-2 rounded-r-md hover:bg-[#1a5ca8] transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 TAMSA 15th GA and 17th ISC. All rights reserved.|Developed by MOFAS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for mobile menu toggle (would be expanded in a real implementation)
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('button.md\\:hidden');
+            const mobileMenu = document.querySelector('.hidden.md\\:flex');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('flex');
+                mobileMenu.classList.toggle('flex-col');
+                mobileMenu.classList.toggle('absolute');
+                mobileMenu.classList.toggle('top-16');
+                mobileMenu.classList.toggle('right-4');
+                mobileMenu.classList.toggle('bg-blue-900');
+                mobileMenu.classList.toggle('p-4');
+                mobileMenu.classList.toggle('rounded-lg');
+                mobileMenu.classList.toggle('shadow-xl');
+                mobileMenu.classList.toggle('space-y-4');
+                mobileMenu.classList.toggle('space-x-0');
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+    </script>
+</body>
+</html>
