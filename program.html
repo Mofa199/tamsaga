@@ -142,6 +142,7 @@
             z-index: 10;
         }
     </style>
+    <link rel="icon" type="image/png" href="images/wite bg.png">
 </head>
 <body class="font-sans">
     <!-- Navigation -->
@@ -170,10 +171,10 @@
         </div>
         <div id="mobile-menu" class="md:hidden hidden flex-col space-y-4 px-4 pb-4 bg-white shadow-lg absolute top-16 left-0 w-full transition-all duration-300 transform -translate-y-4 opacity-0">
             <a href="index.html" class="text-blue-900 font-medium hover:text-blue-600 transition">Home |</a>
-            <a href="#" class="text-blue-900 font-medium hover:text-blue-600 transition"> About |</a>
-            <a href="#" class="text-blue-900 font-medium hover:text-blue-600 transition"> Program |</a>
-            <a href="#" class="text-blue-900 font-medium hover:text-blue-600 transition"> Speakers |</a>
-            <a href="#" class="text-blue-900 font-medium hover:text-blue-600 transition"> Venue </a>
+            <a href="about.html" class="text-blue-900 font-medium hover:text-blue-600 transition"> About |</a>
+            <a href="program.html" class="text-blue-900 font-medium hover:text-blue-600 transition"> Program |</a>
+            <a href="speakers.html" class="text-blue-900 font-medium hover:text-blue-600 transition"> Speakers |</a>
+            <a href="venue.html" class="text-blue-900 font-medium hover:text-blue-600 transition"> Venue </a>
             <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition">Register</a>
         </div>
     </nav>
@@ -181,10 +182,14 @@
     <!-- Hero Section with Video Background -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
         <div class="video-background">
-            <video autoplay muted loop>
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-medical-team-in-a-meeting-39839-large.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+   <iframe
+    src="https://www.youtube.com/embed/A1ZEd66ISe4?autoplay=1&mute=1"
+    title="APC Hotel"
+    frameborder="0"
+    allow="autoplay; fullscreen"
+    allowfullscreen
+    class="absolute inset-0 w-full h-full">
+  </iframe>
         </div>
         <div class="absolute inset-0 bg-black opacity-40"></div>
         <div class="content-wrapper text-center px-4 z-10">
@@ -583,78 +588,117 @@
         </div>
     </section>
 
-    <!-- Timeline Section -->
-    <section class="py-16 timeline-bg parallax relative">
-        <div class="bg-overlay"></div>
-        <div class="content-wrapper container mx-auto px-4">
-            <div class="mb-16 fade-in">
-                <h2 class="text-3xl font-bold text-white mb-8 flex items-center justify-center">
-                    <i class="fas fa-history text-white mr-3"></i> IFMSA GA Timeline
-                </h2>
-                <div class="relative">
-                    <!-- Timeline line -->
-                    <div class="border-l-2 border-white absolute h-full left-1/2 transform -translate-x-1/2"></div>
-                    
-                    <!-- Timeline items container -->
-                    <div class="space-y-8">
-                        <!-- Timeline item 1 -->
-                        <div class="relative flex items-center">
-                            <div class="flex-1 pr-8 text-right">
-                                <h3 class="text-xl font-bold text-white">Taipei, Taiwan</h3>
-                                <p class="text-gray-200">August 2024</p>
-                                <p class="text-gray-200">72nd IFMSA General Assembly</p>
-                            </div>
-                            <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
-                                <i class="fas fa-plane"></i>
-                            </div>
-                            <div class="flex-1 pl-8">
-                                <div class="glass p-4 rounded-lg shadow-md">
-                                    <img src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Taipei" class="w-full h-32 object-cover rounded mb-2">
-                                    <p class="text-white text-sm">Upcoming event in the vibrant capital of Taiwan</p>
-                                </div>
-                            </div>
+<!-- Timeline Section -->
+<section class="py-16 timeline-bg parallax relative">
+    <div class="bg-overlay"></div>
+    <div class="content-wrapper container mx-auto px-4">
+        <div class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold text-white mb-8 flex items-center justify-center">
+                <i class="fas fa-history text-white mr-3"></i> GA25 Timeline Highlights
+            </h2>
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="border-l-2 border-white absolute h-full left-1/2 transform -translate-x-1/2"></div>
+
+                <!-- Timeline items container -->
+                <div class="space-y-8">
+
+                    <!-- Oct 4 - Marathon -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8 text-right">
+                            <h3 class="text-xl font-bold text-white">Health & Wellness Marathon</h3>
+                            <p class="text-gray-200">Oct 4, 2025 (Saturday)</p>
+                            <p class="text-gray-200">5KM, 10KM, 21KM | NCD Awareness & Fitness Fair</p>
                         </div>
-                        
-                        <!-- Timeline item 2 -->
-                        <div class="relative flex items-center">
-                            <div class="flex-1 pr-8 text-right">
-                                <div class="glass p-4 rounded-lg shadow-md">
-                                    <img src="https://images.unsplash.com/photo-1538970272646-f61fabb3bfdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Cairo" class="w-full h-32 object-cover rounded mb-2">
-                                    <p class="text-white text-sm">Historic event in the heart of Egypt</p>
-                                </div>
-                            </div>
-                            <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
-                                <i class="fas fa-landmark"></i>
-                            </div>
-                            <div class="flex-1 pl-8">
-                                <h3 class="text-xl font-bold text-white">Cairo, Egypt</h3>
-                                <p class="text-gray-200">March 2023</p>
-                                <p class="text-gray-200">71st IFMSA General Assembly</p>
-                            </div>
+                        <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
+                            <i class="fas fa-running"></i>
                         </div>
-                        
-                        <!-- Timeline item 3 -->
-                        <div class="relative flex items-center">
-                            <div class="flex-1 pr-8 text-right">
-                                <h3 class="text-xl font-bold text-white">Paris, France</h3>
-                                <p class="text-gray-200">August 2022</p>
-                                <p class="text-gray-200">70th IFMSA General Assembly</p>
-                            </div>
-                            <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
-                                <i class="fas fa-umbrella-beach"></i>
-                            </div>
-                            <div class="flex-1 pl-8">
-                                <div class="glass p-4 rounded-lg shadow-md">
-                                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Paris" class="w-full h-32 object-cover rounded mb-2">
-                                    <p class="text-white text-sm">Memorable assembly in the City of Light</p>
-                                </div>
+                        <div class="flex-1 pl-8">
+                            <div class="glass p-4 rounded-lg shadow-md">
+                                <img src="https://images.unsplash.com/photo-1526404965432-2aa6b6e4ef4e?auto=format&fit=crop&w=400&q=80" alt="Marathon" class="w-full h-32 object-cover rounded mb-2">
+                                <p class="text-white text-sm">A fitness-packed kickoff to GA25 in Dar es Salaam</p>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Oct 5 - Medical Camp -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8 text-right">
+                            <div class="glass p-4 rounded-lg shadow-md">
+                                <img src="https://images.unsplash.com/photo-1576765607924-c2d5ef0bf3c4?auto=format&fit=crop&w=400&q=80" alt="Medical Camp" class="w-full h-32 object-cover rounded mb-2">
+                                <p class="text-white text-sm">Free medical outreach benefiting 1000+ lives</p>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <div class="flex-1 pl-8">
+                            <h3 class="text-xl font-bold text-white">Medical Outreach at Mabwepande</h3>
+                            <p class="text-gray-200">Oct 5, 2025 (Sunday)</p>
+                            <p class="text-gray-200">Free Health Services for 1000+ people</p>
+                        </div>
+                    </div>
+
+                    <!-- Oct 6 - Scientific Conference -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8 text-right">
+                            <h3 class="text-xl font-bold text-white">Scientific Conference Day</h3>
+                            <p class="text-gray-200">Oct 6, 2025 (Monday)</p>
+                            <p class="text-gray-200">Keynotes, Research, Innovations & Trainings</p>
+                        </div>
+                        <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <div class="flex-1 pl-8">
+                            <div class="glass p-4 rounded-lg shadow-md">
+                                <img src="https://images.unsplash.com/photo-1581093588401-12aa3465f5dd?auto=format&fit=crop&w=400&q=80" alt="Conference" class="w-full h-32 object-cover rounded mb-2">
+                                <p class="text-white text-sm">Partnered with Aenon Healthcare, this day brings science to life</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Oct 7 - GA Day -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8 text-right">
+                            <div class="glass p-4 rounded-lg shadow-md">
+                                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=80" alt="General Assembly" class="w-full h-32 object-cover rounded mb-2">
+                                <p class="text-white text-sm">Leaders converge to strategize, vote and reshape the future</p>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <div class="flex-1 pl-8">
+                            <h3 class="text-xl font-bold text-white">General Assembly Day</h3>
+                            <p class="text-gray-200">Oct 7, 2025 (Tuesday)</p>
+                            <p class="text-gray-200">Constitution Review, Elections, Strategic Planning</p>
+                        </div>
+                    </div>
+
+                    <!-- Oct 9 - Excursion -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8 text-right">
+                            <h3 class="text-xl font-bold text-white">Mbudya Island Excursion</h3>
+                            <p class="text-gray-200">Oct 9, 2025 (Thursday)</p>
+                            <p class="text-gray-200">Team Bonding & Cultural Celebration</p>
+                        </div>
+                        <div class="w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center text-blue-600">
+                            <i class="fas fa-umbrella-beach"></i>
+                        </div>
+                        <div class="flex-1 pl-8">
+                            <div class="glass p-4 rounded-lg shadow-md">
+                                <img src="https://images.unsplash.com/photo-1591604446931-fb48c9f2cd5b?auto=format&fit=crop&w=400&q=80" alt="Mbudya Island" class="w-full h-32 object-cover rounded mb-2">
+                                <p class="text-white text-sm">A scenic close to GA25, relaxing and reconnecting with nature</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- CTA Section -->
     <section class="py-20 cta-bg parallax relative">
