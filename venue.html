@@ -117,6 +117,7 @@
             }
         }
     </style>
+    <link rel="icon" type="image/png" href="images/wite bg.png">
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
@@ -145,10 +146,10 @@
         </div>
         <div id="mobile-menu" class="md:hidden hidden flex-col space-y-4 px-4 pb-4 bg-white/95 shadow-lg absolute top-16 left-0 w-full backdrop-blur-md transition-all duration-300">
             <a href="index.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition">Home |</a>
-            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> About |</a>
-            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Program |</a>
-            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Speakers |</a>
-            <a href="#" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Venue </a>
+            <a href="about.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> About |</a>
+            <a href="program.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Program |</a>
+            <a href="speakers.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Speakers |</a>
+            <a href="venue.html" class="text-[#213874] font-medium hover:text-[#1a6ac3] transition"> Venue </a>
             <a href="https://tamsatanzania.org/eventsthe-17th-international-scientific-conference-15th-tamsa-general-assembly/application-form/" class="bg-[#1a6ac3] text-white px-4 py-2 rounded-md font-medium hover:bg-[#213874] transition">Register</a>
         </div>
     </nav>
@@ -156,15 +157,19 @@
     <!-- Hero Section with Video Background -->
     <header class="relative text-white">
         <div class="video-container">
-            <video autoplay muted loop playsinline>
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-conference-hall-with-empty-seats-1170-large.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+  <iframe
+    src="https://www.youtube.com/embed/zu4YbFuqDbw?autoplay=1&mute=1"
+    title="APC Hotel"
+    frameborder="0"
+    allow="autoplay; fullscreen"
+    allowfullscreen
+    class="absolute inset-0 w-full h-full">
+  </iframe>
             <div class="absolute inset-0 bg-black/40"></div>
             <div class="container mx-auto px-4 h-full flex items-center justify-center relative z-10 text-center">
                 <div class="glass p-8 md:p-12 max-w-4xl">
                     <h1 class="text-4xl md:text-5xl font-bold mb-4">General Assembly Venue</h1>
-                    <p class="text-xl md:text-2xl mb-8">Discover the location of this year's IFMSA General Assembly</p>
+                    <p class="text-xl md:text-2xl mb-8">Discover the location of this year's TAMSA GA and ISC</p>
                     <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                         <a href="#venue" class="bg-white text-[#1a6ac3] px-6 py-3 rounded-lg font-semibold hover:bg-blue-100 transition">Venue Info</a>
                         <a href="#transport" class="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#1a6ac3] transition">Transportation</a>
@@ -193,16 +198,16 @@
                                         width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                             <div class="p-6 bg-white/90">
-                                <h3 class="text-2xl font-bold text-[#213874] mb-2">Empire State Convention Center</h3>
-                                <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-[#1a6ac3] mr-2"></i> 350 5th Ave, New York, NY 10118, United States</p>
-                                <p class="text-gray-700 mb-4">The Empire State Convention Center is a state-of-the-art facility located in the heart of New York City, offering world-class amenities and versatile spaces perfect for the IFMSA General Assembly.</p>
+                                <h3 class="text-2xl font-bold text-[#213874] mb-2">APC Hotel and Conference Centre</h3>
+                                <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-[#1a6ac3] mr-2"></i> Mbweni – Bunju area 1.5 km from Bagamoyo Road. The Hotel is 36 kilometres from Dar es salaam City Centre</p>
+                                <p class="text-gray-700 mb-4">The Perfect place to find relaxation and host our yearly GA and ISC</p>
                                 <div class="flex flex-wrap gap-2 mb-4">
                                     <span class="bg-blue-100 text-[#1a6ac3] px-3 py-1 rounded-full text-sm"><i class="fas fa-wifi mr-1"></i> Free WiFi</span>
                                     <span class="bg-blue-100 text-[#1a6ac3] px-3 py-1 rounded-full text-sm"><i class="fas fa-utensils mr-1"></i> Catering</span>
                                     <span class="bg-blue-100 text-[#1a6ac3] px-3 py-1 rounded-full text-sm"><i class="fas fa-wheelchair mr-1"></i> Accessibility</span>
                                     <span class="bg-blue-100 text-[#1a6ac3] px-3 py-1 rounded-full text-sm"><i class="fas fa-parking mr-1"></i> Parking</span>
                                 </div>
-                                <a href="#" class="text-[#1a6ac3] font-semibold hover:text-[#213874] transition flex items-center">
+                                <a href="https://apchotelandconferencecentre.co.tz/" class="text-[#1a6ac3] font-semibold hover:text-[#213874] transition flex items-center">
                                     Visit official website <i class="fas fa-external-link-alt ml-2 text-sm"></i>
                                 </a>
                             </div>
@@ -266,27 +271,27 @@
                 
                 <div class="image-gallery">
                     <div class="glass overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/1st.jpg"
                             alt="Conference Hall" class="gallery-image w-full">
                     </div>
                     <div class="glass overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/2nd.jpg"
                             alt="Lobby Area" class="gallery-image w-full">
                     </div>
                     <div class="glass overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/3rd.jpg"
                             alt="Meeting Room" class="gallery-image w-full">
                     </div>
                     <div class="glass overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/4th.jpg"
                             alt="Networking Space" class="gallery-image w-full">
                     </div>
                     <div class="glass overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/5th.jpg"
                             alt="Catering Area" class="gallery-image w-full">
                     </div>
                     <div class="glass overflow-hidden rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/6th.jpg"
                             alt="Auditorium" class="gallery-image w-full">
                     </div>
                 </div>
@@ -309,15 +314,15 @@
                             </div>
                             <h3 class="text-xl font-bold text-[#213874]">By Air</h3>
                         </div>
-                        <p class="text-gray-700 mb-4">The nearest airport is John F. Kennedy International Airport (JFK), approximately 25 km from the venue.</p>
+                        <p class="text-gray-700 mb-4">The nearest airport is Nyerere International Airport, approximately 25 km from the venue.</p>
                         <ul class="space-y-2 text-sm text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
-                                <span>Taxi: ~45 min, $60-80</span>
+                                <span>Taxi / Bolt: ~45 min, 30,000/= TSHS</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
-                                <span>AirTrain + Subway: ~1h 15min, $10.75</span>
+                                <span>Public Transport: ~65 min, 5000/=</span>
                             </li>
                         </ul>
                     </div>
@@ -329,15 +334,15 @@
                             </div>
                             <h3 class="text-xl font-bold text-[#213874]">Public Transport</h3>
                         </div>
-                        <p class="text-gray-700 mb-4">The venue is easily accessible via New York City's extensive public transportation network.</p>
+                        <p class="text-gray-700 mb-4">The venue is easily accessible via Dar es salaam Extensive public Transport Dart.</p>
                         <ul class="space-y-2 text-sm text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
-                                <span>Subway: B, D, F, M, N, Q, R, W trains to 34th St-Herald Sq</span>
+                                <span>DART (Mwendokasi) to Morroco</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
-                                <span>Bus: M5, M7, M20, M34</span>
+                                <span>Public Bus: Bunju Sokoni (Stop: Bunju Kwa Mjeshi)</span>
                             </li>
                         </ul>
                     </div>
@@ -353,11 +358,11 @@
                         <ul class="space-y-2 text-sm text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
-                                <span>Venue parking: $40/day</span>
+                                <span>Venue parking: </span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-arrow-right text-[#1a6ac3] mt-1 mr-2 text-xs"></i>
-                                <span>Nearby garages: $30-50/day</span>
+                                <span>Nearby garages: AT YOUR OWN RISK</span>
                             </li>
                         </ul>
                     </div>
@@ -378,39 +383,39 @@
                         <img src="https://images.unsplash.com/photo-1496442226666-8d50d06b11df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                                 alt="Times Square" class="w-full h-40 object-cover">
                         <div class="p-4 bg-white/90">
-                            <h3 class="font-bold text-lg mb-2">Times Square</h3>
+                            <h3 class="font-bold text-lg mb-2">Saadani</h3>
                             <p class="text-gray-600 text-sm mb-3">0.8 miles from venue</p>
-                            <p class="text-gray-700 text-sm">The bustling heart of Manhattan known for its bright lights and Broadway theaters.</p>
+                            <p class="text-gray-700 text-sm">One of the beautiful parks in Dar es salaam.</p>
                         </div>
                     </div>
                     
                     <div class="glass rounded-xl overflow-hidden venue-card transition duration-300">
-                        <img src="https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/daf1e6425152b2bc88fa28881139a6e5.jpeg"
                                 alt="Central Park" class="w-full h-40 object-cover">
                         <div class="p-4 bg-white/90">
-                            <h3 class="font-bold text-lg mb-2">Central Park</h3>
+                            <h3 class="font-bold text-lg mb-2">Ununio Beach</h3>
                             <p class="text-gray-600 text-sm mb-3">1.5 miles from venue</p>
-                            <p class="text-gray-700 text-sm">An urban oasis with walking trails, lakes, and recreational activities.</p>
+                            <p class="text-gray-700 text-sm">A classic beach with hidden and amazing activities activities.</p>
                         </div>
                     </div>
                     
                     <div class="glass rounded-xl overflow-hidden venue-card transition duration-300">
-                        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/R.jpeg"
                                 alt="Statue of Liberty" class="w-full h-40 object-cover">
                         <div class="p-4 bg-white/90">
-                            <h3 class="font-bold text-lg mb-2">Statue of Liberty</h3>
+                            <h3 class="font-bold text-lg mb-2">Wet & Wild</h3>
                             <p class="text-gray-600 text-sm mb-3">6 miles from venue</p>
-                            <p class="text-gray-700 text-sm">Iconic symbol of freedom accessible by ferry from Battery Park.</p>
+                            <p class="text-gray-700 text-sm">A place to cool off after discussions. </p>
                         </div>
                     </div>
                     
                     <div class="glass rounded-xl overflow-hidden venue-card transition duration-300">
-                        <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        <img src="images/serval10.jpg"
                                 alt="Museum of Modern Art" class="w-full h-40 object-cover">
                         <div class="p-4 bg-white/90">
-                            <h3 class="font-bold text-lg mb-2">Museum of Modern Art</h3>
+                            <h3 class="font-bold text-lg mb-2">Mbweni JKT club Zoo</h3>
                             <p class="text-gray-600 text-sm mb-3">0.7 miles from venue</p>
-                            <p class="text-gray-700 text-sm">World-renowned museum featuring works by Van Gogh, Picasso, and Warhol.</p>
+                            <p class="text-gray-700 text-sm">Interact and get the experience of the wild with JKT Zoo.</p>
                         </div>
                     </div>
                 </div>
@@ -419,26 +424,26 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-[#213874] text-white py-12">
+    <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
                     <img src="images/Tamsa logo (1).png" alt="TAMSA Logo" class="h-12 mb-4">
-                    <p class="text-gray-300">TAMSA is a member of the International Federation for Medical Students' Associations (IFMSA), which is one of the world's oldest and largest student-run organizations recognized by the World Health Organization as an official international forum for Medical Students.</p>
+                    <p class="text-gray-400">TAMSA is a member of the International Federation for Medical Students' Associations (IFMSA), which is one of the world's oldest and largest student-run organizations recognized by the World Health Organization as an official international forum for Medical Students.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
-                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition">Program</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition">Speakers</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition">Venue</a></li>
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition">About</a></li>
+                        <li><a href="program.html" class="text-gray-400 hover:text-white transition">Program</a></li>
+                        <li><a href="speakers.html" class="text-gray-400 hover:text-white transition">Speakers</a></li>
+                        <li><a href="venue.html" class="text-gray-400 hover:text-white transition">Venue</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Contact</h3>
-                    <ul class="space-y-2 text-gray-300">
+                    <ul class="space-y-2 text-gray-400">
                         <li class="flex items-start">
                             <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
                             <span>Muhimbili University of Health & Allied Sciences (MUHAS), United Nations Road, Upanga, Ilala Tanzania.</span>
@@ -456,25 +461,26 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
-                        <a href="https://www.instagram.com/tamsatanzania?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-gray-300 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                        <a href="#" class="text-graya-400 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://www.instagram.com/tamsatanzania?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
                     </div>
                     <div class="mt-6">
                         <h4 class="font-medium mb-2">Subscribe to Newsletter</h4>
                         <div class="flex">
                             <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md text-gray-900 w-full">
-                            <button class="bg-[#1a6ac3] px-4 py-2 rounded-r-md hover:bg-[#1a5ca8] transition">
+                            <button class="bg-blue-600 px-4 py-2 rounded-r-md hover:bg-blue-700 transition">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-300">
-                <p>&copy; 2025 TAMSA 15th GA and 17th ISC. All rights reserved.|Developed by MOFAS</p>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 TAMSA 15th GA and 17th ISC. All rights reserved. | Developed by <a href="xxx.html" target="_blank">MOFAS</a></p>
+
             </div>
         </div>
     </footer>
